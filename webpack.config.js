@@ -1,10 +1,8 @@
 module.exports = {
   entry: "./lib/main.js",
   output: {
-    filename: "./lib/bundle.js"
+    path: __dirname,
+  	filename: "./lib/bundle.js"
   },
-  devtool: 'source-map',
-  resolve: {
-    extensions: ['.js', '*']
-  }
+  watch: true
 };
