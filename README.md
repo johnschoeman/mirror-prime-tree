@@ -42,6 +42,8 @@ In the mirror prime visualizer users will be able to
 
 ## Wireframes
 
+![wireframe](https://github.com/johnschoeman/mirror-prime-tree/blob/master/docs/Web%201920%20%E2%80%93%201.png)
+
 ## Architecture and Technologies
 
 This project will be implemented with the following technologies:
