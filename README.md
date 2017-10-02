@@ -8,11 +8,11 @@ A mirror or palindrome prime is any prime that is also prime when written in rev
 - given a natural number n (written in base 10).
 - rewrite n in every base from 2 up to (n - 1).
 - mirror each representation of n in it's given base.
-- rewrite to mirrored number in base 10.
+- rewrite the mirrored number in base 10.
 - any number larger than n that has not already been generated is taken as a child node of n.
 - repeat the process for each child node.
 
-An example with 11:
+An example using 11 as the parent node:
 
 | base | rewritten number | mirrored number | rewritten in base 10 |
 |------|------------------|-----------------|----------------------|
