@@ -23,7 +23,7 @@ h1 {
 }
 
 .aside {
-  width: 220px;
+  width: 300px;
 }
 
 .mirror-options {
@@ -41,15 +41,15 @@ h1 {
 }
 
 .options {
-  width: 180px;
-  margin-bottom: 10px;
+  width: 260px;
+  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .options div {
-  width: 100px;
+  width: 300px;
 }
 
 .checkbox-options {
@@ -75,10 +75,19 @@ input[type="number"] {
   padding: 3px;
 }
 
+.input-display {
+  width: 30px;
+  padding: 3px;
+  margin-left: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  text-align: center;
+}
 
 .canvas-div {
-  width: 850px;
-  height: 850px;
+  width: 80%;
+  max-width: 1100px;
+  height: 800px;
   margin: 10px auto;
   background-color: #fff;
   border-radius: 3px;
@@ -93,5 +102,10 @@ input[type="number"] {
   background-color: #fff;
   margin: 10px;
   border-radius: 3px;
+  border: 1px solid #ccc;
+}
+
+.maybe {
+  color: #ccc;
   border: 1px solid #ccc;
 }
