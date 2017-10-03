@@ -3,14 +3,59 @@
   <head>
     <title>MirrorPrimeTree</title>
     <script type="application/javascript" src="./lib/bundle.js"></script>
+    <link href="/Users/johnschoeman/workspace/appacademy/aa_frontend/mirror-prime-tree/css/reset.scss" rel="stylesheet">
+    <link href="/Users/johnschoeman/workspace/appacademy/aa_frontend/mirror-prime-tree/css/mirror_prime.scss" rel="stylesheet">
   </head>
 
   <body>
-    <h1>Mirror Prime Tree</h1>
+    <header>
+      <div class="header">
+        <h1>Mirror Prime Tree</h1>
+      </div>
+    </header>
 
-    <div class="canvas-div">
-      <canvas id="canvas"></canvas>
+    <div class="content">
+
+      <div class="aside">
+
+        <div id="mirror-options" class="mirror-options">
+          <span class="options">
+            <div>Seed Number</div>
+            <input id="seed-input" type="number" name="seed" value="11" min="2">
+          </span>
+          <span class="options">
+            <div>Iterations</div>
+            <input id="iterations-input" type="number" value="80" min="0" max="300">
+          </span>
+          <span class="options">
+              <div>length</div>
+              <input id="length-input" type="number" value="50" min="0" max="300">
+            </span>
+          <span class="options">
+            <div>Spread Angle</div>
+            <input id="spread-input" type="range" name="spread" min="0" max="6">
+          </span>
+          <div class="checkbox-options">
+            <label class="checkbox">
+              <div>Show Primes</div>
+              <input type="checkbox" value="show-primes" checked>
+            </label>
+            <label class="checkbox">
+              <div>Show Composites</div>
+              <input type="checkbox" value="show-composites" checked>
+            </label>
+          </div>
+        </div>
+        
+        <div class="info-nav"></div>
+      </div>
+      
+      <div class="canvas-div">
+        <canvas id="canvas"></canvas>
+      </div>
+
+      
+      
     </div>
-
   </body>
 </html>

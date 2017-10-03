@@ -1,0 +1,28 @@
+{
+  "name": "mirror-prime-tree",
+  "version": "1.0.0",
+  "description": "A data visualization for a number generation algorithm.",
+  "main": "webpack.config.js",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnschoeman/mirror-prime-tree.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johnschoeman/mirror-prime-tree/issues"
+  },
+  "homepage": "https://github.com/johnschoeman/mirror-prime-tree#readme",
+  "dependencies": {
+    "webpack": "^3.6.0"
+  }
+}
