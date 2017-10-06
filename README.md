@@ -67,10 +67,8 @@ This project is built with the following technologies:
 
 - saving of created images to users local machine.
 - saving gifs of animated trees.
-- making the application mobible responsive using css-grid.
+- making the application mobile responsive using css-grid.
 - users chosing start location of tree rendering.
-- a 'fractal painter' user experience where paint brushes/stamps are generated fractals, such as binary trees, the mandlebrot set with zoom, a koch curve, choas/attractor generated sperpenski's triangle, trigonomotry based dot animation.
-- drag and drop mainipulation of tree nodes.
 - rendering single walks within the tree and/or highlighting those walks.
 - hover/click event listeners that show the node value.
 - users able to choose color of tree elements.
@@ -84,3 +82,5 @@ This project is built with the following technologies:
 - a 'danger mode' to allow users to use highly computationally demanding parameters.
 - a 'party mode' that renders/animates trees at random, with flashing colors.
 - apply a signleton pattern to construct a single instance of a request animation frame.
+- a 'fractal painter' user experience where paint brushes/stamps are generated fractals, such as binary trees, the mandlebrot set with zoom, a koch curve, choas/attractor generated sperpenski's triangle, trigonomotry based dot animation.
+- drag and drop mainipulation of tree nodes by clicking.
