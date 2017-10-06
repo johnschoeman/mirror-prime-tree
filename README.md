@@ -4,7 +4,7 @@ A data visualization for a number generation algorithm.
 [Live Site](https://johnschoeman.github.io/mirror-prime-tree/)
 
 
-![home page]()
+![home page](https://github.com/johnschoeman/mirror-prime-tree/blob/master/docs/home_page.png)
 
 ## Background and Overview
 
@@ -46,7 +46,7 @@ In the mirror prime visualizer users are able to
 
 ### Sample Animation
 
-![slow animation]()
+![slow animation](https://github.com/johnschoeman/mirror-prime-tree/blob/master/docs/animated-gif-slow.gif)
 
 ## Interesting Design Choices
 
