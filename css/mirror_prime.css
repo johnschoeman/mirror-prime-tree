@@ -139,27 +139,30 @@ input[type="number"] {
 
 
 .info-bar {
-  background-color: #efefef;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+  background-color: #FFFFFF;
   width: 300px;
-  height: 100%;
   margin: 10px;
   padding: 10px;
-  display: flex;
-  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 3px;
   justify-content: left;
-  overflow: auto;
+  display: table;
 }
 
 .info-header {
   padding: 10px;
-  margin: 10px 20px;
+  margin: 10px 0;
+  text-align: left;
+}
+
+.info-header:hover {
+  cursor: pointer;
+  color: #666666;
 }
 
 .info {
   width: 300px;
-  flex-direction: column;
+  display: table-row;
 }
 
 h2 {
