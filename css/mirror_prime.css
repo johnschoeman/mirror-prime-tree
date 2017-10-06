@@ -6,11 +6,19 @@ body {
 }
 
 .header {
-  height: 45px;
+  height: 50px;
   width: 100%;
   padding: 10px;
   background-color: #fff;
   border-bottom: 1px solid #ccc;
+}
+
+.header-title {
+  margin-bottom: 10px;
+}
+
+.header-content {
+  margin-left: 10px;
 }
 
 h1 {
@@ -173,13 +181,100 @@ p {
   margin: 5px;
 }
 
+#canvas-div {
+  width: 1100px;
+  height: 800px;
+}
 
-@media (max-width: 1200px) {
+
+@media (max-width: 1850px) {
+  .header-content {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
   .content {
     flex-direction: column;
   }
 
   .mirror-options {
+    max-width: 1100px;
+    margin: 10px auto;
+    margin-bottom: 0;
+    width: 98%;
     flex-direction: row;
+    justify-content: space-between
+  }
+
+  .checkbox {
+    width: 98%;
+    margin-bottom: 8px;
+  }
+
+  .options-header {
+    margin-bottom: 4px;
+  }
+
+  .options {
+    margin-bottom: 8px;
+  }
+
+  .parameter-section {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  .tree-generation-parameters {
+    width: 30%
+  }
+
+  .tree-rendering-parameters {
+    width: 55%;
+  }
+
+  .node-rendering-parameters {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .node-rendering-parameters > * {
+    width: 48%;
+  }
+
+  .animation {
+    width: 10%;
+    flex-direction: column;
+    justify-content: left;
+    align-content: left;
+  }
+
+  .animation > * {
+    margin-bottom: 10px;
+  }
+
+  .canvas-div {
+    width: 95%;
+  }
+
+  .info-bar {
+    margin: 0 auto;
+    padding: 0;
+    width: 1100px;
+  }
+
+  .info {
+    margin: 0 auto;
+    padding: 10px;
+    width: 95%;
+  }
+}
+
+@media (max-width: 1100px) {
+  input[type="range"] {
+    width: 60px;
+  }
+  .options div {
+    width: 60px;
   }
 }

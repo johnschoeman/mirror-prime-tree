@@ -10,3 +10,18 @@ button:hover {
   background-color: #585858;
   color: #efefef;
 }
+
+a {
+  border: 1px solid #ccc;
+  background-color: #ddd;
+  border-radius: 2px;
+  padding: 3px 8px 3px 8px;
+  margin: 10px 0;
+  margin-right: 10px;
+}
+
+a:hover {
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background-color: #eee;
+}
