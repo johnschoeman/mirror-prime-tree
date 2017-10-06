@@ -3,7 +3,7 @@ A data visualization for a number generation algorithm.
 
 ## Background and Overview
 
-A mirror or palindrome prime is any prime that is also prime when written in reverse. e.g. 13 and 31.  One can generate a tree of numbers by using mirroring in a simple algorithm: 
+A mirror or palindrome prime is any prime that is also prime when written in reverse. e.g. 13 and 31.  One can generate a tree of numbers by using mirroring in a simple algorithm as follows: 
 
 - given a natural number n (written in base 10).
 - rewrite n in every base from 2 up to (n - 1).
@@ -32,37 +32,46 @@ The children of 11 would then be taken as:
 ```
 ## Functionality & MVP
 
-In the mirror prime visualizer users will be able to
+In the mirror prime visualizer users are able to
 
 - [ ] create a tree based of a mirroring numbers algorithm by providing a seed number.
-- [ ] adjust parameters (spacing, ordering, duplication, etc.) of the number generation algorithm and generate different tree shapes
-- [ ] adjust color parameters of the tree, with an option to see iteration walks highlighted.
-- [ ] zoom in on nodes and display node information.
-- [ ] drag and drop nodes of the tree
+- [ ] adjust parameters of the number generation algorithm and generate different tree shapes: (seed, interations, number-type, child node quanity)
+- [ ] adjust rendering parameters of the tree: (Size, angle, node size)
+- [ ] animate the node generation process of a given tree.
 
-## Wireframes
+## Interesting Design Choices
 
-![wireframe](https://github.com/johnschoeman/mirror-prime-tree/blob/master/docs/Web%201920%20%E2%80%93%201.png)
+- generation of a tree by creation of an abstract data type.
+- using depth first recursion in the generation of a single frame to keep code DRY and reduce overhead of canvas operations.
+- using dynamic programing to increase speed of tree generation animation.
+- defining user interface to restrict request animation frame instances to a single instance, reducing potential for application crashes.
 
 ## Architecture and Technologies
 
-This project will be implemented with the following technologies:
+This project is built with the following technologies:
 
-- vanilla javascript
-- HTML5 canvas
+- Vanilla JavaScript (ES6)
+- HTML5 Canvas
 - Webpack
 
-## Implementation Timeline
+### Potential Future Functionality
 
-**Over the weekend**
-- [x] Finsh tree node data strucure and node generation algorithm.
-- [x] Set up weback and basic HTML 5 canvas rendering.
-- [x] Learn how to procedurally generate trees using canvas.
-
-**Day 1:** Finish node generation implementation and render basic tree nodes
-
-**Day 2:** Color nodes based off user input.
-
-**Day 3:** Allow users to drag and drop nodes.
-
-**Day 4:** Animate generation of tree.
+- saving of created images to users local machine.
+- saving gifs of animated trees.
+- making the application mobible responsive using css-grid.
+- users chosing start location of tree rendering.
+- a 'fractal painter' user experience where paint brushes/stamps are generated fractals, such as binary trees, the mandlebrot set with zoom, a koch curve, choas/attractor generated sperpenski's triangle, trigonomotry based dot animation.
+- drag and drop mainipulation of tree nodes.
+- rendering single walks within the tree and/or highlighting those walks.
+- hover/click event listeners that show the node value.
+- users able to choose color of tree elements.
+- color gradients based of number of prime factors of nodes.
+- a tree generation based off of other algorithms, i.e. p-adic numbers.
+- animation of a single rendering process.
+- automated animation of other parameter deltas.
+- a breadth first version of a single frame rendering.
+- nodes being rendered on concentric circles based off of node depth.
+- javascript classes to modularize user input elements.
+- a 'danger mode' to allow users to use highly computationally demanding parameters.
+- a 'party mode' that renders/animates trees at random, with flashing colors.
+- apply a signleton pattern to construct a single instance of a request animation frame.

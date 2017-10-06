@@ -172,3 +172,14 @@ h2 {
 p {
   margin: 5px;
 }
+
+
+@media (max-width: 1200px) {
+  .content {
+    flex-direction: column;
+  }
+
+  .mirror-options {
+    flex-direction: row;
+  }
+}
