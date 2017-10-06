@@ -1,6 +1,11 @@
 # Mirror Prime Tree
 A data visualization for a number generation algorithm.
 
+[Live Site](https://johnschoeman.github.io/mirror-prime-tree/)
+
+
+![home page]()
+
 ## Background and Overview
 
 A mirror or palindrome prime is any prime that is also prime when written in reverse. e.g. 13 and 31.  One can generate a tree of numbers by using mirroring in a simple algorithm as follows: 
@@ -38,6 +43,10 @@ In the mirror prime visualizer users are able to
 - [ ] adjust parameters of the number generation algorithm and generate different tree shapes: (seed, interations, number-type, child node quanity)
 - [ ] adjust rendering parameters of the tree: (Size, angle, node size)
 - [ ] animate the node generation process of a given tree.
+
+### Sample Animation
+
+![slow animation]()
 
 ## Interesting Design Choices
 
