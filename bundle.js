@@ -351,6 +351,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mandlebrot__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__solar_system__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tree__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tree___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__tree__);
 
 
 
@@ -386,7 +387,7 @@ window.addEventListener("DOMContentLoaded", () => {
       break
     }
     case "Tree": {
-      Object(__WEBPACK_IMPORTED_MODULE_6__tree__["a" /* default */])()
+      Object(__WEBPACK_IMPORTED_MODULE_6__tree__["default"])()
       break
     }
   }
@@ -1090,71 +1091,10 @@ const initSolarSystem = () => {
 
 /***/ }),
 /* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, __webpack_exports__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(0);
-
-
-const drawTree = function drawTree(
-  ctx,
-  startX,
-  startY,
-  len,
-  angle,
-  branchWidth
-) {
-  ctx.beginPath()
-  ctx.save()
-
-  ctx.translate(startX, startY)
-  ctx.rotate((angle * Math.PI) / 180)
-  ctx.moveTo(0, 0)
-
-  ctx.lineTo(0, -len)
-
-  // if (angle > 0 ) {
-  //   ctx.bezierCurveTo(10 * len/120, len/2, 10*len/120, len/2, 0, -len);
-  // } else {
-  //   ctx.bezierCurveTo(-10 * len/120, -len/2, 10*len/120, -len/2, 0, -len);
-  // }
-
-  // ctx.lineWidth = branchWidth;
-  ctx.shadowBlur = 1
-  ctx.shadowColor = "rgba(0,0,0,0.75)"
-  ctx.stroke()
-
-  if (len < 10) {
-    // ctx.beginPath();
-    // ctx.arc(0, -len, 10, 0, Math.PI/2);
-    // ctx.fillStyle = "green";
-    // ctx.fill();
-    ctx.restore()
-    return
-  }
-
-  ctx.beginPath()
-  ctx.arc(0, -len, 5, 0, 2 * Math.PI)
-  ctx.fillStyle = "red"
-  ctx.fill()
-
-  drawTree(ctx, 0, -len, len * 0.8, angle - 10, branchWidth * 0.8)
-  drawTree(ctx, 0, -len, len * 0.8, angle + 10, branchWidth * 0.8)
-
-  ctx.restore()
-}
-
-const initTree = () => {
-  console.log("running tree code")
-  const canvasEl = document.getElementById("canvas")
-  __WEBPACK_IMPORTED_MODULE_0__utils__["a" /* Canvas */].sizeCanvasMax(canvasEl)
-  let ctx = canvasEl.getContext("2d")
-
-  drawTree(ctx, 360, 600, 120, 0, 10)
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (initTree);
-
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/Users/john/workspace/mirror-prime-tree/src/tree.js'");
 
 /***/ })
 /******/ ]);
