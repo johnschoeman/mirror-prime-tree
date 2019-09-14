@@ -46,8 +46,8 @@ export const sizeCanvasMax = canvas => {
     window.innerHeight || 0
   )
 
-  canvas.style.width = vw
-  canvas.style.height = vh
+  canvas.style.width = 0.8 * vw
+  canvas.style.height = 0.8 * vh
 
   canvas.width = canvas.offsetWidth
   canvas.height = canvas.offsetHeight
