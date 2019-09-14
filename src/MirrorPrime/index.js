@@ -114,10 +114,6 @@ function getUserInput() {
 }
 
 function sizeCanvas(canvas) {
-  let canvasDiv = document.getElementsByClassName("canvas-div")[0]
-
-  console.log("vh", vh)
-  console.log("vw", vw)
   let canvasHeight, canvasWidth
   if (vw > 1100) {
     canvasWidth = "1100px"

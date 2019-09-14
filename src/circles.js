@@ -1,7 +1,8 @@
 let canvas, ctx, toggle
 let animationId
 
-export const initCircles = function initCircles() {
+const initCircles = function initCircles() {
+  console.log("initing circles")
   canvas = document.createElement("canvas")
   canvas.width = 512
   canvas.height = 512
@@ -30,7 +31,7 @@ export const initCircles = function initCircles() {
   })
 }
 
-export const animateCircles = function animateCircles() {
+const animateCircles = function animateCircles() {
   animationId = window.requestAnimationFrame(animateCircles)
   draw()
 }
@@ -47,3 +48,5 @@ function draw() {
   ctx.closePath()
   ctx.fill()
 }
+
+export default initCircles

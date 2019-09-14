@@ -1,8 +1,10 @@
+import { Canvas } from "./utils"
+
 let sun = new Image()
 let moon = new Image()
 let earth = new Image()
 
-export const init = function init(ctx) {
+const init = function init(ctx) {
   sun.src = "https://mdn.mozillademos.org/files/1456/Canvas_sun.png"
   moon.src = "https://mdn.mozillademos.org/files/1443/Canvas_moon.png"
   earth.src = "https://mdn.mozillademos.org/files/1429/Canvas_earth.png"
@@ -48,3 +50,13 @@ function draw(ctx) {
     window.requestAnimationFrame(draw(ctx))
   }
 }
+
+const initSolarSystem = () => {
+  console.log("Running solar system code")
+  const canvasEl = document.getElementById("canvas")
+  Canvas.sizeCanvasMax(canvasEl)
+  let ctx = canvasEl.getContext("2d")
+  init(ctx)
+}
+
+export default initSolarSystem

@@ -1,4 +1,6 @@
-export const createMandlebrot = function createMandlebrot() {
+import { Canvas } from "./utils"
+
+const createMandlebrot = function createMandlebrot() {
   let myCanvas = document.createElement("canvas")
   myCanvas.width = 600
   myCanvas.height = 600
@@ -8,7 +10,7 @@ export const createMandlebrot = function createMandlebrot() {
   drawMandlebrot(myCanvas, ctx)
 }
 
-export const checkIfBelongsToMandlebrotSet = function checkIfBelongsToMandlebrotSet(
+const checkIfBelongsToMandlebrotSet = function checkIfBelongsToMandlebrotSet(
   x,
   y
 ) {
@@ -34,7 +36,7 @@ export const checkIfBelongsToMandlebrotSet = function checkIfBelongsToMandlebrot
   return 0
 }
 
-export const drawMandlebrot = function drawMandlebrot(myCanvas, ctx) {
+const drawMandlebrot = function drawMandlebrot(myCanvas, ctx) {
   let magnificationFactor = 200
   let panX = 2
   let panY = 1
@@ -55,3 +57,13 @@ export const drawMandlebrot = function drawMandlebrot(myCanvas, ctx) {
     }
   }
 }
+
+export const run = () => {
+  const canvasEl = document.getElementById("canvas")
+  Canvas.sizeCanvasMax(canvasEl)
+  let ctx = canvasEl.getContext("2d")
+
+  drawMandlebrot(canvasEl, ctx)
+}
+
+export default run
