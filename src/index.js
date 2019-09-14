@@ -1,4 +1,5 @@
 import * as MirrorPrime from "./MirrorPrime"
+import initRecaman from "./Recaman"
 import initCircles from "./circles"
 import initKochCurve from "./koch_curve"
 import initMandlebrot from "./mandlebrot"
