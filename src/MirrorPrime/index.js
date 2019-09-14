@@ -1,17 +1,6 @@
-import {
-  MirrorTreeNode,
-  MirrorNum,
-  generateTree,
-} from "./mirror_prime_generator"
-import { objectId, objIdMap, toDigits } from "./mirror_util"
+import { generateTree } from "./mirror_prime_generator"
 import { drawMirrorTree } from "./mirror_tree"
 import { initTreeAnimation } from "./animate_tree"
-
-import { drawTree } from "./tree"
-import { createMandlebrot } from "./mandlebrot"
-import { drawKochCurve } from "./koch_curve"
-import { init } from "./solar_system"
-import { initCircles, animateCircles } from "./circles"
 
 const vw = Math.max(
   document.documentElement.clientWidth,
@@ -22,8 +11,9 @@ const vh = Math.max(
   window.innerHeight || 0
 )
 
-document.addEventListener("DOMContentLoaded", function() {
-  let canvasEl = document.getElementById("canvas")
+export const run = () => {
+  const canvasEl = document.getElementById("canvas")
+  console.log("canvasEl", canvasEl)
   sizeCanvas(canvasEl)
   let ctx = canvasEl.getContext("2d")
 
@@ -43,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // createMandlebrot();
   // initCircles();
   // animateCircles();
-})
+}
 
 function initInfoNav() {
   let info = document.getElementById("info")
