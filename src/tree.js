@@ -1,4 +1,6 @@
-export const drawTree = function drawTree(
+import { Canvas } from "./utils"
+
+const drawTree = function drawTree(
   ctx,
   startX,
   startY,
@@ -45,3 +47,14 @@ export const drawTree = function drawTree(
 
   ctx.restore()
 }
+
+const initTree = () => {
+  console.log("running tree code")
+  const canvasEl = document.getElementById("canvas")
+  Canvas.sizeCanvasMax(canvasEl)
+  let ctx = canvasEl.getContext("2d")
+
+  drawTree(ctx, 360, 600, 120, 0, 10)
+}
+
+export default initTree

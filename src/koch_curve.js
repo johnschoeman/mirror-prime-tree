@@ -1,4 +1,6 @@
-export const generateSequence = function generateSequence() {
+import { Canvas } from "./utils"
+
+const generateSequence = function generateSequence() {
   let sequence = "0"
   for (let i = 0; i < 17; i++) {
     let parts = sequence.split("")
@@ -11,7 +13,7 @@ export const generateSequence = function generateSequence() {
   return sequence
 }
 
-export const drawKochCurve = function drawKochCurve(myCanvas, ctx) {
+const drawKochCurve = function drawKochCurve(myCanvas, ctx) {
   var sequence = generateSequence()
   var parts = sequence.split("")
   ctx.translate(0, myCanvas.height)
@@ -27,3 +29,12 @@ export const drawKochCurve = function drawKochCurve(myCanvas, ctx) {
   }
   ctx.stroke()
 }
+
+const initKochCurve = () => {
+  const canvasEl = document.getElementById("canvas")
+  Canvas.sizeCanvasMax(canvasEl)
+  let ctx = canvasEl.getContext("2d")
+  drawKochCurve(canvasEl, ctx)
+}
+
+export default initKochCurve
