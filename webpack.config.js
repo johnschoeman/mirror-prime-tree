@@ -1,8 +1,8 @@
 module.exports = {
-  entry: "./lib/main.js",
+  entry: "./src/main.js",
   output: {
     path: __dirname,
-  	filename: "./lib/bundle.js"
+    filename: "./src/bundle.js",
   },
-  watch: true
-};
+  watch: true,
+}
