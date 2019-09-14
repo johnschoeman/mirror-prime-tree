@@ -1,8 +1,8 @@
 module.exports = {
-  entry: "./src/main.js",
+  entry: "./src/index.js",
   output: {
     path: __dirname,
-    filename: "./src/bundle.js",
+    filename: "./dist/bundle.js",
   },
   watch: true,
 }
