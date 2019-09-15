@@ -1,5 +1,3 @@
-require("../target/scala-2.12/scala-js-tutorial-fastopt")
-
 import * as MirrorPrime from "./MirrorPrime"
 import initRecaman from "./Recaman"
 import initCircles from "./circles"
@@ -17,7 +15,6 @@ window.addEventListener("DOMContentLoaded", () => {
     }
     case "Recaman": {
       initRecaman()
-      console.log(Sequence.generateRecaman(0, 0, 20))
       break
     }
     case "Circles": {

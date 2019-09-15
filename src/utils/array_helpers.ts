@@ -1,4 +1,4 @@
-type ArcPair = {
+export type ArcPair = {
   lft: number
   rgt: number
 }

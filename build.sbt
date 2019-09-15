@@ -17,3 +17,11 @@ libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.7"
 
 // libraryDependencies += "com.lihaoyi" %%% "utest" % "0.6.3" % "test"
 // testFrameworks += new TestFramework("utest.runner.Framework")
+
+val circeVersion = "0.11.1"
+
+libraryDependencies ++= Seq(
+  "io.circe" %%% "circe-core",
+  "io.circe" %%% "circe-generic",
+  "io.circe" %%% "circe-parser"
+).map(_ % circeVersion)
