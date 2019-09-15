@@ -1,15 +1,25 @@
 <html>
   <head>
     <title>Circles</title>
-    <script type="application/javascript" src="../dist/main.js"></script>
     <link href="../css/reset.css" rel="stylesheet" />
     <link href="../css/layout.css" rel="stylesheet" />
+    <script type="application/javascript" src="../dist/main.js"></script>
   </head>
 
   <body>
-    Circles
-    <section id="canvas-div" class="canvas-div">
-      <canvas id="canvas"></canvas>
-    </section>
+    <header>Circles</header>
+
+    <div class="row_container">
+      <div id="canvas-div" class="canvas_container">
+        <canvas id="canvas" class="canvas"></canvas>
+      </div>
+
+      <div id="inputs" class="inputs_container">
+        <div class="buttons_container">
+          <button id="start-animation-button" class="start_button"></button>
+          <button id="stop-animation-button" class="stop_button"></button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

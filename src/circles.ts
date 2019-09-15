@@ -2,23 +2,14 @@ let canvas, ctx, toggle
 let animationId
 
 const initCircles = function initCircles() {
-  console.log("initing circles")
-  canvas = document.createElement("canvas")
+  canvas = document.getElementById("canvas")
   canvas.width = 512
   canvas.height = 512
 
   ctx = canvas.getContext("2d")
 
-  document.body.appendChild(canvas)
-
-  let stopButton, startButton
-  stopButton = document.createElement("button")
-  startButton = document.createElement("button")
-  stopButton.innerHTML = "Stop"
-  startButton.innerHTML = "Start"
-
-  document.body.appendChild(stopButton)
-  document.body.appendChild(startButton)
+  const startButton = document.getElementById("start-animation-button")
+  const stopButton = document.getElementById("stop-animation-button")
 
   animationId = window.requestAnimationFrame(animateCircles)
 
