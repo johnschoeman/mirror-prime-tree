@@ -1,4 +1,4 @@
-import * as MirrorPrime from "./MirrorPrime"
+import initMirrorTree from "./MirrorPrime"
 import initRecaman from "./Recaman"
 import initCircles from "./circles"
 import initKochCurve from "./koch_curve"
@@ -10,7 +10,7 @@ import initAsteroids from "./Asteroids"
 window.addEventListener("DOMContentLoaded", () => {
   switch (document.title) {
     case "MirrorPrimeTree": {
-      MirrorPrime.run()
+      initMirrorTree()
       break
     }
     case "Recaman": {

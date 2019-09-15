@@ -1,253 +1,104 @@
 <html>
   <head>
     <title>MirrorPrimeTree</title>
-    <script type="application/javascript" src="../bundle.js"></script>
     <link href="../css/reset.css" rel="stylesheet" />
     <link href="../css/layout.css" rel="stylesheet" />
     <link href="../css/mirror_prime.css" rel="stylesheet" />
+    <script type="application/javascript" src="../dist/main.js"></script>
   </head>
 
   <body>
-    <header>
-      <div class="header">
-        <div class="header-content">
-          <h1 class="header-title">Mirror Prime Tree</h1>
-          <div class="link-nav">
-            <a href="https://github.com/johnschoeman/mirror-prime-tree"
-              >Github</a
-            >
-            <a href="https://www.linkedin.com/in/john-schoeman-36894658/"
-              >LinkedIn</a
-            >
-          </div>
-        </div>
-      </div>
-    </header>
+    <header>Mirror Primes</header>
 
-    <div class="content">
-      <div class="aside">
-        <div id="mirror-options" class="mirror-options">
-          <div class="parameter-section tree-generation-parameters">
-            <div class="options-header">Tree Generation Parameters</div>
-            <span class="options">
-              <div>Seed Number</div>
-              <input
-                id="seed-input"
-                type="range"
-                name="seed"
-                value="11"
-                min="5"
-                max="29"
-                step="1"
-              />
-              <div id="seed-display" class="input-display">11</div>
-            </span>
-            <span class="options">
-              <div>Iterations</div>
-              <input
-                id="iterations-input"
-                type="range"
-                value="300"
-                min="0"
-                max="400"
-                step="1"
-              />
-              <div id="iterations-display" class="input-display">300</div>
-            </span>
-            <span class="options">
-              <div>Max Child Nodes</div>
-              <input
-                id="max-child-nodes-input"
-                type="range"
-                value="9"
-                min="2"
-                max="30"
-                step="1"
-              />
-              <div id="max-child-nodes-display" class="input-display">9</div>
-            </span>
-
-            <div class="checkbox-options">
-              <label class="checkbox">
-                <div>Show Primes</div>
-                <input type="checkbox" id="show-primes-input" checked />
-              </label>
-              <label class="checkbox">
-                <div>Show Composites</div>
-                <input type="checkbox" id="show-composites-input" checked />
-              </label>
-            </div>
-          </div>
-
-          <div class="parameter-section tree-rendering-parameters">
-            <div class="options-header">Tree Rendering Parameters</div>
-            <div class="node-rendering-parameters">
-              <div>
-                <div class="options-sub-header">Parent Nodes</div>
-                <span class="options">
-                  <div>Length</div>
-                  <input
-                    id="length-input"
-                    type="range"
-                    value="60"
-                    min="0"
-                    max="300"
-                    step="1"
-                  />
-                  <div id="length-display" class="input-display">100</div>
-                </span>
-                <span class="options">
-                  <div>Length Multiple</div>
-                  <input
-                    id="length-multiple-input"
-                    type="range"
-                    value="1.2"
-                    min="0.1"
-                    max="3"
-                    step="0.1"
-                  />
-                  <div id="length-multiple-display" class="input-display">
-                    1
-                  </div>
-                </span>
-                <span class="options">
-                  <div>Spread Angle</div>
-                  <input
-                    id="spread-input"
-                    type="range"
-                    name="spread"
-                    value="2"
-                    min="0"
-                    max="6"
-                    step="0.1"
-                  />
-                  <div id="spread-display" class="input-display">2</div>
-                </span>
-                <span class="options">
-                  <div>Dot Size</div>
-                  <input
-                    id="dot-size-input"
-                    type="range"
-                    name="spread"
-                    value="1"
-                    min="0"
-                    max="10"
-                    step="0.1"
-                  />
-                  <div id="dot-size-display" class="input-display">1</div>
-                </span>
-              </div>
-
-              <div>
-                <div class="options-sub-header">Terminal Nodes</div>
-                <span class="options">
-                  <div>Length Multiple</div>
-                  <input
-                    id="terminal-length-multiple-input"
-                    type="range"
-                    value="0.5"
-                    min="0.1"
-                    max="3"
-                    step="0.1"
-                  />
-                  <div
-                    id="terminal-length-multiple-display"
-                    class="input-display"
-                  >
-                    0.5
-                  </div>
-                </span>
-                <span class="options">
-                  <div>Spread Angle</div>
-                  <input
-                    id="terminal-angle-range-input"
-                    type="range"
-                    name="spread"
-                    value="1.0"
-                    min="0"
-                    max="6"
-                    step="0.1"
-                  />
-                  <div id="terminal-angle-range-display" class="input-display">
-                    1
-                  </div>
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="parameter-section animation">
-            <div class="animate-header">Animate</div>
-            <button id="start-animation">Start Animation</button>
-            <button id="stop-animation">Stop Animation</button>
-          </div>
-        </div>
+    <div class="row_container">
+      <div id="canvas-div" class="canvas_container">
+        <canvas id="canvas" class="canvas"></canvas>
       </div>
 
-      <section id="canvas-div" class="canvas-div">
-        <canvas id="canvas"></canvas>
-      </section>
+      <div id="inputs" class="inputs_container">
+        <input
+          id="seed-input"
+          type="range"
+          name="seed"
+          value="11"
+          min="5"
+          max="29"
+          step="1"
+        />
+        <input
+          id="iterations-input"
+          type="range"
+          value="10"
+          min="0"
+          max="400"
+          step="1"
+        />
+        <input
+          id="max-child-nodes-input"
+          type="range"
+          value="9"
+          min="2"
+          max="30"
+          step="1"
+        />
 
-      <div class="info-bar">
-        <div id="info-header" class="info-header">
-          <h2>What Am I Looking At?</h2>
-        </div>
-        <div id="info" style="display: none;" class="info">
-          <section>
-            <p>
-              - This is an artistic visualization of a tree graph generated by
-              number enumeration algorithm utilizing digit mirroring.
-            </p>
-            <p>- By using this site, you are creating Art with Math!</p>
-            <p>- Enjoy tuning the parameters to discover new patterns.</p>
-          </section>
-          <section>
-            <h3>How is The Tree Generated?</h3>
-            <p>- Each node represents a generated number.</p>
-            <p>
-              - Blue nodes are prime numbers and red nodes are composite numbers
-            </p>
-            <p>
-              - A parent node is connected to it's children nodes with lines
-            </p>
-            <p>
-              - Child nodes are generated for each parent by rewritting the
-              parent node's numerical value into every meaningful base,
-              mirroring the resulting representaion and rewritting the new
-              mirrored number back into base 10.
-            </p>
-            <p>
-              - For example: if the parent node is 11, 11 would be converted
-              into base 2 resulting in 1011, this would be mirrored to 1101 in
-              base 2 which is 13 in base 10. This would be repeated for bases 3
-              up to 10.
-            </p>
-            <p>
-              - Side note: An interesting result of this process is that prime
-              numbers tend to generate relatively more prime numbers than
-              composites. If you are a mathematician interested in researching
-              this please connect with me via email or linkedin, I am looking
-              for collaborators on this project.
-            </p>
-          </section>
-          <section>
-            <h3>What Do The Parameters Do?</h3>
-            <p>
-              - Seed Number: This will the root number used in the tree
-              generation algorithm.
-            </p>
-            <p>
-              - Iteration: This is the number of times the algorithm will be
-              applied. (Technically these graphs could extend forever)
-            </p>
-            <p>
-              - Max Child Nodes: This will limit the number of child nodes a
-              parent node will have.
-            </p>
-            <p>- Show Primes: This will show nodes that are prime.</p>
-            <p>- Show Composites: This will show nodes that are composite.</p>
-          </section>
-        </div>
+        <input
+          id="length-input"
+          type="range"
+          value="60"
+          min="0"
+          max="300"
+          step="1"
+        />
+        <input
+          id="length-multiple-input"
+          type="range"
+          value="1.2"
+          min="0.1"
+          max="3"
+          step="0.1"
+        />
+        <input
+          id="spread-input"
+          type="range"
+          name="spread"
+          value="2"
+          min="0"
+          max="6"
+          step="0.1"
+        />
+        <input
+          id="dot-size-input"
+          type="range"
+          name="spread"
+          value="1"
+          min="0"
+          max="10"
+          step="0.1"
+        />
+
+        <input
+          id="terminal-length-multiple-input"
+          type="range"
+          value="0.5"
+          min="0.1"
+          max="3"
+          step="0.1"
+        />
+        <input
+          id="terminal-angle-range-input"
+          type="range"
+          name="spread"
+          value="1.0"
+          min="0"
+          max="6"
+          step="0.1"
+        />
+        <input type="checkbox" id="show-primes-input" checked />
+        <input type="checkbox" id="show-composites-input" checked />
+
+        <button id="start-animation">Start</button>
+        <button id="stop-animation">Stop</button>
       </div>
     </div>
   </body>
