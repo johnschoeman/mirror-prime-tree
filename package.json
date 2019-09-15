@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/johnschoeman/mirror-prime-tree#readme",
   "dependencies": {
+    "source-map-support": "^0.5.13",
     "webpack": "^4.40.2"
   },
   "devDependencies": {

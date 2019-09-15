@@ -1,1 +1,6 @@
 node_modules/
+project/project/
+project/target/
+target/streams/
+target/scala-2.12/resolution-cache
+target/scala-2.12/classes
