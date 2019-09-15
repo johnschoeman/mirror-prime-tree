@@ -1,15 +1,50 @@
 <html>
   <head>
     <title>Recaman</title>
-    <script type="application/javascript" src="../bundle.js"></script>
     <link href="../css/reset.css" rel="stylesheet" />
     <link href="../css/layout.css" rel="stylesheet" />
+    <link href="../css/recaman.css" rel="stylesheet" />
+    <script type="application/javascript" src="../dist/main.js"></script>
   </head>
 
   <body>
-    Recaman
-    <section id="canvas-div" class="canvas-div">
-      <canvas id="canvas"></canvas>
+    <div class="top_header" style="display: flex; flex-direction: row">
+      <div style="width: 300px">
+        <header>Recaman</header>
+      </div>
+
+      <div id="inputs">
+        <input
+          id="root-input"
+          type="range"
+          value="17"
+          min="0"
+          max="200"
+          step="1"
+        />
+        <input
+          id="count-input"
+          type="range"
+          value="100"
+          min="1"
+          max="1000"
+          step="1"
+        />
+        <input
+          id="number-space-input"
+          type="range"
+          value="5"
+          min="1"
+          max="20"
+          step="1"
+        />
+      </div>
+
+      <header id="root-display">17</header>
+    </div>
+
+    <section id="canvas-div" class="canvas-container">
+      <canvas id="canvas" class="canvas"></canvas>
     </section>
   </body>
 </html>
