@@ -5,6 +5,7 @@ import initKochCurve from "./koch_curve"
 import initMandlebrot from "./mandlebrot"
 import initSolarSystem from "./solar_system"
 import initTree from "./tree"
+import initAsteroids from "./Asteroids"
 
 window.addEventListener("DOMContentLoaded", () => {
   switch (document.title) {
@@ -34,6 +35,10 @@ window.addEventListener("DOMContentLoaded", () => {
     }
     case "Tree": {
       initTree()
+      break
+    }
+    case "Asteroids": {
+      initAsteroids()
       break
     }
   }

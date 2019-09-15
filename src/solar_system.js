@@ -52,7 +52,6 @@ function draw(ctx) {
 }
 
 const initSolarSystem = () => {
-  console.log("Running solar system code")
   const canvasEl = document.getElementById("canvas")
   Canvas.sizeCanvasMax(canvasEl)
   let ctx = canvasEl.getContext("2d")

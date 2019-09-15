@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Asteroids</title>
+    <script src="../dist/main.js"></script>
+    <link href="../css/reset.css" rel="stylesheet" />
+    <link href="../css/layout.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="header_container">
+      <header>Asteroids</header>
+    </div>
+
+    <div id="inputs">
+      <input
+        id="asteroid-count-input"
+        type="range"
+        value="10"
+        min="0"
+        max="144"
+        step="1"
+      />
+    </div>
+
+    <canvas
+      id="cnvs"
+      height="720"
+      width="1280"
+      style="margin-left: 36px; margin-right: auto;"
+    ></canvas>
+  </body>
+</html>
