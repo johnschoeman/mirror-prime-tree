@@ -7,7 +7,7 @@
   </head>
 
   <body>
-    <header>Mirror Primes</header>
+    <header>MirrorPrimes</header>
 
     <div class="row_container">
       <div id="canvas-div" class="canvas_container">
@@ -93,11 +93,23 @@
           max="6"
           step="0.1"
         />
-        <input type="checkbox" id="show-primes-input" checked />
-        <input type="checkbox" id="show-composites-input" checked />
 
-        <button id="start-animation">Start</button>
-        <button id="stop-animation">Stop</button>
+        <div class="checkbox_container">
+          <label class="check">
+            <input type="checkbox" id="show-primes-input" checked />
+            <div class="box"></div>
+          </label>
+
+          <label class="check">
+            <input type="checkbox" id="show-composites-input" checked />
+            <div class="box"></div>
+          </label>
+        </div>
+
+        <div class="buttons_container">
+          <button id="start-animation" class="start_button"></button>
+          <button id="stop-animation" class="stop_button"></button>
+        </div>
       </div>
     </div>
   </body>
