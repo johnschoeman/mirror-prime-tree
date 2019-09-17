@@ -6,6 +6,7 @@ import initMandlebrot from "./mandlebrot"
 import initSolarSystem from "./solar_system"
 import initTree from "./tree"
 import initAsteroids from "./Asteroids"
+import initSolarSystem2 from "./SolarSystem2"
 
 window.addEventListener("DOMContentLoaded", () => {
   switch (document.title) {
@@ -39,6 +40,10 @@ window.addEventListener("DOMContentLoaded", () => {
     }
     case "Asteroids": {
       initAsteroids()
+      break
+    }
+    case "SolarSystem2": {
+      initSolarSystem2()
       break
     }
   }

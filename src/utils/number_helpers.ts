@@ -50,3 +50,7 @@ export const objectId = function objectId(object) {
   }
   return objIdMap.get(object)
 }
+
+export const randomInteger = (high: number = 100, low: number = 0) => {
+  return Math.floor(Math.random() * (high - low)) + low
+}

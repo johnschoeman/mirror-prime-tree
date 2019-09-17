@@ -126,14 +126,20 @@ input[type="range"]::-webkit-slider-thumb:active {
 .start_button {
   background-color: #00aa00;
   width: 36px;
-  height: 30px;
+  height: 36px;
   margin-right: 12px;
 }
 
 .stop_button {
   background-color: #aa0000;
   width: 36px;
-  height: 30px;
+  height: 36px;
+}
+
+.randomize_button {
+  background-color: #6600ff;
+  width: 36px;
+  height: 36px;
 }
 
 .check {
