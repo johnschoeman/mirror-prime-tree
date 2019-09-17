@@ -8,8 +8,8 @@ const drawTree = (
   leftRightDiff: number,
   branchWidth: number
 ) => {
-  ctx.beginPath()
   ctx.save()
+  ctx.beginPath()
 
   ctx.translate(startX, startY)
   ctx.rotate((angle * Math.PI) / 180)
