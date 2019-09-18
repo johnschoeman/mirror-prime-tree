@@ -1,33 +1,33 @@
-let canvas, ctx, toggle
-let animationId
+import { HtmlHelpers } from "./utils"
+
+let toggle: boolean
+let animationId: number
 
 const initCircles = function initCircles() {
-  canvas = document.getElementById("canvas")
-  canvas.width = 512
-  canvas.height = 512
-
-  ctx = canvas.getContext("2d")
+  const { canvas, ctx } = HtmlHelpers.setupCanvas("canvas")
 
   const startButton = document.getElementById("start-animation-button")
   const stopButton = document.getElementById("stop-animation-button")
 
-  animationId = window.requestAnimationFrame(animateCircles)
+  animationId = window.requestAnimationFrame(animateCircles(ctx))
 
   stopButton.addEventListener("click", () => {
     window.cancelAnimationFrame(animationId)
   })
   startButton.addEventListener("click", () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    animationId = window.requestAnimationFrame(animateCircles)
+    animationId = window.requestAnimationFrame(animateCircles(ctx))
   })
 }
 
-const animateCircles = function animateCircles() {
-  animationId = window.requestAnimationFrame(animateCircles)
-  draw()
+const animateCircles = (ctx: CanvasRenderingContext2D) => {
+  return () => {
+    animationId = window.requestAnimationFrame(animateCircles(ctx))
+    draw(ctx)
+  }
 }
 
-function draw() {
+function draw(ctx: CanvasRenderingContext2D) {
   let time = new Date().getTime() * 0.002
   let x = Math.sin(time) * 192 + 256
   let y = Math.cos(time * 0.9) * 192 + 256

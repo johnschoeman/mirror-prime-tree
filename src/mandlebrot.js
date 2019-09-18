@@ -1,4 +1,4 @@
-import { Canvas } from "./utils"
+import { HtmlHelpers } from "./utils"
 
 const createMandlebrot = function createMandlebrot() {
   let myCanvas = document.createElement("canvas")
@@ -59,11 +59,8 @@ const drawMandlebrot = function drawMandlebrot(myCanvas, ctx) {
 }
 
 export const run = () => {
-  const canvasEl = document.getElementById("canvas")
-  Canvas.sizeCanvasMax(canvasEl)
-  let ctx = canvasEl.getContext("2d")
-
-  drawMandlebrot(canvasEl, ctx)
+  const { canvas, ctx } = HtmlHelpers.setupCanvas("canvas")
+  drawMandlebrot(canvas, ctx)
 }
 
 export default run

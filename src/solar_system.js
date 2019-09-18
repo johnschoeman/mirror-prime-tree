@@ -1,4 +1,4 @@
-import { Canvas } from "./utils"
+import { HtmlHelpers } from "./utils"
 
 let sun = new Image()
 let moon = new Image()
@@ -52,9 +52,7 @@ function draw(ctx) {
 }
 
 const initSolarSystem = () => {
-  const canvasEl = document.getElementById("canvas")
-  Canvas.sizeCanvasMax(canvasEl)
-  let ctx = canvasEl.getContext("2d")
+  const { ctx } = HtmlHelpers.setupCanvas("canvas")
   init(ctx)
 }
 

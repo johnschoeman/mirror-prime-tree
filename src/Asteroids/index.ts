@@ -1,4 +1,5 @@
 import { Shape, Asteroid, Circle, Rectangle } from "./shapes"
+import { HtmlHelpers } from "../utils"
 
 const runGame = asteroidCount => {
   const canvas: HTMLCanvasElement = <HTMLCanvasElement>(
@@ -35,10 +36,7 @@ const initGame = () => {
   runGame(asteroidCount)
 
   document.getElementById("inputs").addEventListener("change", () => {
-    const asteroidCountInput = <HTMLInputElement>(
-      document.getElementById("asteroid-count-input")
-    )
-    const asteroidCount = Number(asteroidCountInput.value)
+    const asteroidCount = HtmlHelpers.getValue("asteroid-count-input")
 
     runGame(asteroidCount)
   })

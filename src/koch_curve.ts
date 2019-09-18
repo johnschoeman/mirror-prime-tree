@@ -1,3 +1,5 @@
+import { HtmlHelpers } from "./utils"
+
 const kochSequence = (iteration: number) => {
   if (iteration <= 1) {
     return "1101"
@@ -43,22 +45,13 @@ const drawKochCurve = (
 }
 
 const initKochCurve = () => {
-  const canvas = <HTMLCanvasElement>document.getElementById("canvas")
-  const length = Math.min(canvas.offsetWidth, canvas.offsetHeight)
-  canvas.width = length
-  canvas.height = length
-  let ctx = canvas.getContext("2d")
+  const { canvas, ctx } = HtmlHelpers.setupCanvas("canvas")
 
   drawKochCurve(canvas, ctx, 1)
   document.getElementById("inputs").addEventListener("change", () => {
-    const iteration = getValueFromInputWithID("iteration-input")
+    const iteration = HtmlHelpers.getValue("iteration-input")
     drawKochCurve(canvas, ctx, iteration)
   })
-}
-
-const getValueFromInputWithID = (id: string) => {
-  const input = <HTMLInputElement>document.getElementById(id)
-  return Number(input.value)
 }
 
 export default initKochCurve
