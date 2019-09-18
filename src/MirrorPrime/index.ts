@@ -1,6 +1,7 @@
 import { generateTree } from "./mirror_prime_generator"
 import { drawMirrorTree } from "./mirror_tree"
 import { initTreeAnimation } from "./animate_tree"
+import { HtmlHelpers } from "../utils"
 
 interface TreeOptions {
   seed: number
@@ -66,12 +67,12 @@ function createTree(ctx, canvasEl) {
 }
 
 function getUserInput() {
-  let seed = getValueFromInputWithID("seed-input")
-  let iterations = getValueFromInputWithID("iterations-input")
-  let maxChildNodes = getValueFromInputWithID("max-child-nodes-input")
+  let seed = HtmlHelpers.getValue("seed-input")
+  let iterations = HtmlHelpers.getValue("iterations-input")
+  let maxChildNodes = HtmlHelpers.getValue("max-child-nodes-input")
 
-  let showPrimes = getCheckedFromInputWithID("show-primes-input")
-  let showComposites = getCheckedFromInputWithID("show-composites-input")
+  let showPrimes = HtmlHelpers.getChecked("show-primes-input")
+  let showComposites = HtmlHelpers.getChecked("show-composites-input")
 
   let treeOptions: TreeOptions = {
     seed,
@@ -83,14 +84,14 @@ function getUserInput() {
 
   let t = generateTree(treeOptions)
 
-  let length = getValueFromInputWithID("length-input")
-  let angleSpread = getValueFromInputWithID("spread-input")
-  let lengthMultiple = getValueFromInputWithID("length-multiple-input")
-  let dotSize = getValueFromInputWithID("dot-size-input")
-  let terminalLengthMultiplier = getValueFromInputWithID(
+  let length = HtmlHelpers.getValue("length-input")
+  let angleSpread = HtmlHelpers.getValue("spread-input")
+  let lengthMultiple = HtmlHelpers.getValue("length-multiple-input")
+  let dotSize = HtmlHelpers.getValue("dot-size-input")
+  let terminalLengthMultiplier = HtmlHelpers.getValue(
     "terminal-length-multiple-input"
   )
-  let terminalAngleRange = getValueFromInputWithID("terminal-angle-range-input")
+  let terminalAngleRange = HtmlHelpers.getValue("terminal-angle-range-input")
 
   let drawOptions: DrawOptions = {
     startX: null,
@@ -113,16 +114,6 @@ function getUserInput() {
   }
 
   return { drawOptions, treeOptions, animateOptions }
-}
-
-const getValueFromInputWithID = (id: string) => {
-  const input = <HTMLInputElement>document.getElementById(id)
-  return Number(input.value)
-}
-
-const getCheckedFromInputWithID = (id: string) => {
-  const input = <HTMLInputElement>document.getElementById(id)
-  return input.checked
 }
 
 export default initMirrorTree

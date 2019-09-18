@@ -1,4 +1,4 @@
-import { Numbers } from "../utils"
+import { NumberHelpers } from "../utils"
 
 let nodeHash = {} // {11: {MirrorNum(10,11)}, 13: {MirrorNum(10,13)}}
 let nodesWithChildren = {} // {11: {MirrorNum(10,11)}}
@@ -21,7 +21,7 @@ export const generateTree = function generateTree(options) {
 
   let maxChildNodes = options.maxChildNodes
 
-  let rootMirrorNum = new MirrorNum(10, Numbers.toDigits(seed))
+  let rootMirrorNum = new MirrorNum(10, NumberHelpers.toDigits(seed))
   let rootNode = new MirrorTreeNode(rootMirrorNum)
   nodeHash[rootNode.decValue] = rootNode
   nodesWithoutChildrenQueue = [rootNode]
@@ -134,7 +134,7 @@ export const MirrorNum = class MirrorNum {
   }
 
   toBase(toBase) {
-    let newDigits = Numbers.convertBase(this.digits, this.base, toBase)
+    let newDigits = NumberHelpers.convertBase(this.digits, this.base, toBase)
     return new MirrorNum(toBase, newDigits)
   }
 
@@ -153,7 +153,7 @@ export const MirrorNum = class MirrorNum {
     if (this.isPrime) {
       return this.isPrime
     } else {
-      let primeness = Numbers.isPrime(this.decValue)
+      let primeness = NumberHelpers.isPrime(this.decValue)
       this.isPrime = primeness
       return primeness
     }

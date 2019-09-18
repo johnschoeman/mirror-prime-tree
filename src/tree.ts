@@ -1,3 +1,5 @@
+import { HtmlHelpers } from "./utils"
+
 const drawTree = (
   ctx: CanvasRenderingContext2D,
   startX: number,
@@ -61,33 +63,18 @@ const drawTree = (
 }
 
 const initTree = () => {
-  const canvasEl = <HTMLCanvasElement>document.getElementById("canvas")
-  const canvasContainer = <HTMLElement>document.getElementById("canvas-div")
-  let ctx = canvasEl.getContext("2d")
-
-  const canvasWidth = canvasContainer.offsetWidth
-  const canvasHeight = canvasContainer.offsetHeight
-  canvasEl.width = canvasWidth
-  canvasEl.height = canvasHeight
-  const startX = canvasWidth / 2
-  const startY = canvasHeight / 1.1
-  const length = canvasHeight / 8
+  const { canvas, ctx } = HtmlHelpers.setupCanvas("canvas")
+  const startX = canvas.width / 2
+  const startY = canvas.height / 1.1
+  const length = canvas.height / 8
 
   drawTree(ctx, startX, startY, length, 0, 20, 0.5, 10)
 
   document.getElementById("inputs").addEventListener("change", () => {
-    ctx.clearRect(0, 0, canvasEl.width, canvasEl.height)
-
-    const angleInput = <HTMLInputElement>document.getElementById("angle-input")
-    const angleRateInput = <HTMLInputElement>(
-      document.getElementById("angle-rate-input")
-    )
-    const leftRightDiffInput = <HTMLInputElement>(
-      document.getElementById("left-right-diff-input")
-    )
-    const angle = Number(angleInput.value)
-    const angleRate = Number(angleRateInput.value)
-    const leftRightDiff = Number(leftRightDiffInput.value)
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    const angle = HtmlHelpers.getValue("angle-input")
+    const angleRate = HtmlHelpers.getValue("angle-rate-input")
+    const leftRightDiff = HtmlHelpers.getValue("left-right-diff-input")
 
     drawTree(ctx, startX, startY, length, angle, angleRate, leftRightDiff, 10)
   })

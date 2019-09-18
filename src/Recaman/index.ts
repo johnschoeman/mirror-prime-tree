@@ -1,5 +1,7 @@
-import { ArrayHelpers } from "../utils"
+import { ArrayHelpers, HtmlHelpers } from "../utils"
 import { Seq } from "./sequence"
+
+let animationId: number
 
 type Orienation = true | false
 
@@ -35,6 +37,31 @@ const drawRecaman = (
   })
 }
 
+const animateRecaman = (
+  ctx: CanvasRenderingContext2D,
+  canvas: HTMLCanvasElement,
+  startX: number,
+  startY: number,
+  root: number,
+  count: number,
+  numberLineSpacing: number
+) => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  drawRecaman(ctx, startX, startY, root, count, numberLineSpacing)
+
+  animationId = window.requestAnimationFrame(() => {
+    animateRecaman(
+      ctx,
+      canvas,
+      startX,
+      startY,
+      root,
+      count + 1,
+      numberLineSpacing
+    )
+  })
+}
+
 const drawHalfCirle = (
   ctx: CanvasRenderingContext2D,
   y: number,
@@ -65,41 +92,51 @@ interface Coordinate {
   y: number
 }
 
-const setupCanvas = () => {
-  const canvas = <HTMLCanvasElement>document.getElementById("canvas")
-  const canvasWidth = canvas.offsetWidth
-  const canvasHeight = canvas.offsetHeight
-  canvas.width = canvasWidth
-  canvas.height = canvasHeight
-  const midpoint: Coordinate = { x: canvasWidth / 2, y: canvasHeight / 2 }
-  return { canvas, midpoint }
-}
-
 const initRecaman = () => {
-  const {
-    canvas,
-    midpoint: { x: startX, y: startY },
-  } = setupCanvas()
-  const ctx = canvas.getContext("2d")
+  const { canvas, ctx } = HtmlHelpers.setupCanvas("canvas")
 
-  drawRecaman(ctx, 0, startY, 0, 100, 5)
+  const startY = canvas.height / 2
+
+  drawRecaman(ctx, 0, startY, 17, 100, 5)
+  initRecamanAnimation(ctx, canvas, startY, 17, 5)
 
   document.getElementById("inputs").addEventListener("change", () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    const countInput = <HTMLInputElement>document.getElementById("count-input")
-    const rootInput = <HTMLInputElement>document.getElementById("root-input")
-    const numberSpaceInput = <HTMLInputElement>(
-      document.getElementById("number-space-input")
-    )
-    const count = Number(countInput.value)
-    const root = Number(rootInput.value)
-    const numberSpace = Number(numberSpaceInput.value)
+    const count = HtmlHelpers.getValue("count-input")
+    const root = HtmlHelpers.getValue("root-input")
+    const scale = HtmlHelpers.getValue("scale-input")
 
     const rootDisplay = <HTMLElement>document.getElementById("root-display")
     rootDisplay.innerText = root.toString()
 
-    drawRecaman(ctx, 0, startY, root, count, numberSpace)
+    drawRecaman(ctx, 0, startY, root, count, scale)
+    initRecamanAnimation(ctx, canvas, startY, root, scale)
   })
+}
+
+const initRecamanAnimation = (
+  ctx: CanvasRenderingContext2D,
+  canvas: HTMLCanvasElement,
+  startY: number,
+  root: number,
+  scale: number
+) => {
+  document
+    .getElementById("start-animation-button")
+    .addEventListener("click", () => {
+      console.log("start")
+      animationId = window.requestAnimationFrame(() => {
+        animateRecaman(ctx, canvas, 0, startY, root, 0, scale)
+      })
+    })
+
+  document
+    .getElementById("stop-animation-button")
+    .addEventListener("click", () => {
+      console.log("stop")
+      console.log(animationId)
+      window.cancelAnimationFrame(animationId)
+    })
 }
 
 export default initRecaman
