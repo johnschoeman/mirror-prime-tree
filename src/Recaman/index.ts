@@ -1,6 +1,8 @@
 import { ArrayHelpers } from "../utils"
 import { Seq } from "./sequence"
 
+let animationId
+
 type Orienation = true | false
 
 const drawRecaman = (
@@ -32,6 +34,31 @@ const drawRecaman = (
       rgt * numberLineSpacing
     )
     orienation = !orienation
+  })
+}
+
+const animateRecaman = (
+  ctx: CanvasRenderingContext2D,
+  canvas: HTMLCanvasElement,
+  startX: number,
+  startY: number,
+  root,
+  count,
+  numberLineSpacing
+) => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  drawRecaman(ctx, startX, startY, root, count, numberLineSpacing)
+
+  animationId = window.requestAnimationFrame(() => {
+    animateRecaman(
+      ctx,
+      canvas,
+      startX,
+      startY,
+      root,
+      count + 1,
+      numberLineSpacing
+    )
   })
 }
 
@@ -82,7 +109,8 @@ const initRecaman = () => {
   } = setupCanvas()
   const ctx = canvas.getContext("2d")
 
-  drawRecaman(ctx, 0, startY, 0, 100, 5)
+  drawRecaman(ctx, 0, startY, 17, 100, 5)
+  initRecamanAnimation(ctx, canvas, startY, 17, 5)
 
   document.getElementById("inputs").addEventListener("change", () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -99,7 +127,33 @@ const initRecaman = () => {
     rootDisplay.innerText = root.toString()
 
     drawRecaman(ctx, 0, startY, root, count, numberSpace)
+    initRecamanAnimation(ctx, canvas, startY, root, numberSpace)
   })
+}
+
+const initRecamanAnimation = (
+  ctx: CanvasRenderingContext2D,
+  canvas: HTMLCanvasElement,
+  startY: number,
+  root: number,
+  numberSpace: number
+) => {
+  document
+    .getElementById("start-animation-button")
+    .addEventListener("click", () => {
+      console.log("start")
+      animationId = window.requestAnimationFrame(() => {
+        animateRecaman(ctx, canvas, 0, startY, root, 0, numberSpace)
+      })
+    })
+
+  document
+    .getElementById("stop-animation-button")
+    .addEventListener("click", () => {
+      console.log("stop")
+      console.log(animationId)
+      window.cancelAnimationFrame(animationId)
+    })
 }
 
 export default initRecaman
