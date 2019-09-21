@@ -98,7 +98,7 @@ const initRecaman = () => {
   const startY = canvas.height / 2
 
   drawRecaman(ctx, 0, startY, 17, 100, 5)
-  initRecamanAnimation(ctx, canvas, startY, 17, 5)
+  // initRecamanAnimation(ctx, canvas, startY, 17, 5)
 
   document.getElementById("inputs").addEventListener("change", () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -110,33 +110,33 @@ const initRecaman = () => {
     rootDisplay.innerText = root.toString()
 
     drawRecaman(ctx, 0, startY, root, count, scale)
-    initRecamanAnimation(ctx, canvas, startY, root, scale)
+    // initRecamanAnimation(ctx, canvas, startY, root, scale)
   })
 }
 
-const initRecamanAnimation = (
-  ctx: CanvasRenderingContext2D,
-  canvas: HTMLCanvasElement,
-  startY: number,
-  root: number,
-  scale: number
-) => {
-  document
-    .getElementById("start-animation-button")
-    .addEventListener("click", () => {
-      console.log("start")
-      animationId = window.requestAnimationFrame(() => {
-        animateRecaman(ctx, canvas, 0, startY, root, 0, scale)
-      })
-    })
+// const initRecamanAnimation = (
+//   ctx: CanvasRenderingContext2D,
+//   canvas: HTMLCanvasElement,
+//   startY: number,
+//   root: number,
+//   scale: number
+// ) => {
+//   document
+//     .getElementById("start-animation-button")
+//     .addEventListener("click", () => {
+//       console.log("start")
+//       animationId = window.requestAnimationFrame(() => {
+//         animateRecaman(ctx, canvas, 0, startY, root, 0, scale)
+//       })
+//     })
 
-  document
-    .getElementById("stop-animation-button")
-    .addEventListener("click", () => {
-      console.log("stop")
-      console.log(animationId)
-      window.cancelAnimationFrame(animationId)
-    })
-}
+//   document
+//     .getElementById("stop-animation-button")
+//     .addEventListener("click", () => {
+//       console.log("stop")
+//       console.log(animationId)
+//       window.cancelAnimationFrame(animationId)
+//     })
+// }
 
 export default initRecaman
