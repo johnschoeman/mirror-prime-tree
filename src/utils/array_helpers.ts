@@ -16,3 +16,7 @@ export const makePairs = (array: Array<number>) => {
   }
   return result
 }
+
+export const sample = function sample<T>(array: Array<T>): T {
+  return array[Math.floor(Math.random() * array.length)]
+}

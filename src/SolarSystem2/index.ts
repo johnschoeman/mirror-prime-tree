@@ -59,7 +59,7 @@ const drawFrame = (
     ctx.translate(midX, midY)
 
     planets.forEach(planet => {
-      drawOrbitingCircle(ctx, time, planet)
+      drawOrbitingPlanet(ctx, time, planet)
       drawOrbit(ctx, time, planet)
     })
     ctx.restore()
@@ -70,7 +70,7 @@ const drawFrame = (
   }
 }
 
-const drawOrbitingCircle = (
+const drawOrbitingPlanet = (
   ctx: CanvasRenderingContext2D,
   time: number,
   planet: Planet

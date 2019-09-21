@@ -1,4 +1,4 @@
-import { NumberHelpers } from "../utils"
+import { ArrayHelpers, ColorHelpers, NumberHelpers } from "../utils"
 
 export type Planet = {
   size: number
@@ -9,33 +9,40 @@ export type Planet = {
 
 export const generatePlanets = (): Array<Planet> => {
   const planets = []
+  const pallet = ColorHelpers.randomPallet()
+  let sun = generateSun(pallet)
+  planets.push(sun)
+
   let currentRadius = 0
   for (let i = 0; i < 10; i++) {
-    planets.push(generatePlanet(currentRadius))
+    const color = ArrayHelpers.sample<string>(pallet)
+    planets.push(generatePlanet(currentRadius, color))
     currentRadius += randomOrbitRadiusStep()
   }
+
   return planets
 }
 
-const generatePlanet = (orbitRadius: number): Planet => {
+const generateSun = (pallet: Array<string>): Planet => {
+  const size = NumberHelpers.randomInteger(60, 20)
+  return generatePlanet(0, ArrayHelpers.sample<string>(pallet), size)
+}
+
+const generatePlanet = (
+  orbitRadius: number,
+  color: string = ColorHelpers.randomColor(),
+  size: number = randomRadius()
+): Planet => {
   return {
-    size: randomRadius(),
-    color: randomColor(),
-    orbitRadius: orbitRadius,
+    size,
+    color,
+    orbitRadius,
     orbitSpeed: randomOrbitSpeed(),
   }
 }
 
-const randomColor = () => {
-  const red = Math.floor(Math.random() * 256)
-  const green = Math.floor(Math.random() * 256)
-  const blue = Math.floor(Math.random() * 256)
-
-  return `rgb(${red},${green},${blue},1.0)`
-}
-
 const randomRadius = () => {
-  return NumberHelpers.randomInteger(30)
+  return NumberHelpers.randomInteger(30, 5)
 }
 
 const randomOrbitRadiusStep = () => {
@@ -43,6 +50,7 @@ const randomOrbitRadiusStep = () => {
 }
 
 const randomOrbitSpeed = () => {
-  const speed = NumberHelpers.randomInteger(10, -4)
+  // const speed = NumberHelpers.randomInteger(10, -4)
+  const speed = Math.random() * 10 - 4
   return speed === 0 ? 1 : speed
 }
