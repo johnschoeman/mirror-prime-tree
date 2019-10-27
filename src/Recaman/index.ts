@@ -25,13 +25,15 @@ const drawRecaman = (
     recamanSequence
   )
 
+  const horizontalOffset = 12
+
   circlePairs.forEach(({ lft, rgt }) => {
     drawHalfCirle(
       ctx,
       startY,
       orienation,
-      lft * numberLineSpacing,
-      rgt * numberLineSpacing
+      lft * numberLineSpacing + horizontalOffset,
+      rgt * numberLineSpacing + horizontalOffset
     )
     orienation = !orienation
   })
