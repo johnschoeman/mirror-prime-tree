@@ -9,7 +9,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "webpack --watch"
+    "webpack": "webpack --watch",
+    "prettier": "prettier \"src/**/*.+(js|jsx|ts|tsx|json)\"",
+    "format": "yarn prettier --write"
   },
   "repository": {
     "type": "git",
@@ -23,11 +25,13 @@
   },
   "homepage": "https://github.com/johnschoeman/mirror-prime-tree#readme",
   "dependencies": {
+    "rxjs": "^6.5.3",
     "source-map-support": "^0.5.13",
     "webpack": "^4.40.2"
   },
   "devDependencies": {
     "@types/node": "^12.7.5",
+    "prettier": "^1.18.2",
     "source-map-loader": "^0.2.4",
     "ts-loader": "^6.1.0",
     "typescript": "^3.6.3",
