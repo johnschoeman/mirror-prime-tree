@@ -2,4 +2,5 @@
 
 A playground for canvas ideas.
 
-[Live Site](https://johnschoeman.github.io/mirror-prime-tree/)
+[Live Site](https://johndevelops.net)
+
