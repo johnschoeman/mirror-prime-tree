@@ -1,20 +1,24 @@
 <html>
   <head>
     <title>Mandlebrot</title>
-    <link href="../css/reset.css" rel="stylesheet" />
-    <link href="../css/layout.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../dist/tailwind.css">
+    <link rel="stylesheet" href="../css/inputs.css">
     <script type="application/javascript" src="../dist/main.js"></script>
   </head>
 
   <body>
-    <header>Mandlebrot</header>
-
-    <div class="row_container">
-      <div id="canvas-div" class="canvas_container">
-        <canvas id="canvas" class="canvas"></canvas>
+    <div class="w-full px-12 py-8">
+      <div class="flex items-baseline">
+        <h1 class="text-gray-800 text-4xl">Mandlebrot</h1>
+        <a class="lnk ml-12" href="./index.html">back</a>
       </div>
 
-      <div id="inputs" class="inputs_container"></div>
+        <div id="canvas-div" class="">
+          <canvas id="canvas" class="w-full h-full lg:w-1/2"></canvas>
+        </div>
     </div>
   </body>
 </html>

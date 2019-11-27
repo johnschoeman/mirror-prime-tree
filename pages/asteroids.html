@@ -2,31 +2,40 @@
 <html lang="en">
   <head>
     <title>Asteroids</title>
-    <link href="../css/reset.css" rel="stylesheet" />
-    <link href="../css/layout.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../dist/tailwind.css">
+    <link rel="stylesheet" href="../css/inputs.css">
     <script src="../dist/main.js"></script>
   </head>
   <body>
-    <div class="header_container">
-      <header>Asteroids</header>
+    <div class="w-full px-12 py-8">
+      <div class="flex items-baseline">
+        <h1 class="text-gray-800 text-4xl">Asteroids</h1>
+        <a class="lnk ml-12" href="./index.html">back</a>
+      </div>
+
+      <div id="inputs" class="mt-4 lg:w-1/4">
+        <input
+          id="asteroid-count-input"
+          class="w-24"
+          type="range"
+          value="10"
+          min="0"
+          max="144"
+          step="1"
+          />
+      </div>
+
+      <div class="max-w-full">
+      <canvas
+        id="cnvs"
+        width="1280"
+        height="960"
+        ></canvas>
+      </div>
     </div>
 
-    <div id="inputs">
-      <input
-        id="asteroid-count-input"
-        type="range"
-        value="10"
-        min="0"
-        max="144"
-        step="1"
-      />
-    </div>
-
-    <canvas
-      id="cnvs"
-      height="720"
-      width="1280"
-      style="margin-left: 36px; margin-right: auto;"
-    ></canvas>
   </body>
 </html>

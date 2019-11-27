@@ -1,27 +1,22 @@
 <html>
   <head>
     <title>Recaman</title>
-    <link href="../css/reset.css" rel="stylesheet" />
-    <link href="../css/layout.css" rel="stylesheet" />
-    <link href="../css/recaman.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../dist/tailwind.css">
+    <link rel="stylesheet" href="../css/inputs.css">
     <script type="application/javascript" src="../dist/main.js"></script>
   </head>
 
   <body>
-    <div class="top_header" style="display: flex; flex-direction: row">
-      <div style="width: 300px">
-        <header>Recaman</header>
+    <div class="w-full px-12 py-8">
+      <div class="flex items-baseline">
+        <h1 class="text-gray-800 text-4xl">Recaman</h1>
+        <a class="lnk ml-12" href="./index.html">back</a>
       </div>
 
-      <div id="inputs">
-        <input
-          id="root-input"
-          type="range"
-          value="17"
-          min="0"
-          max="200"
-          step="1"
-        />
+      <div id="inputs" class="lg:w-1/4">
         <input
           id="count-input"
           type="range"
@@ -29,7 +24,7 @@
           min="1"
           max="1000"
           step="1"
-        />
+          />
         <input
           id="scale-input"
           type="range"
@@ -37,14 +32,23 @@
           min="1"
           max="20"
           step="1"
-        />
+          />
+        <div class="flex h-0 items-center">
+          <input
+            id="root-input"
+            type="range"
+            value="17"
+            min="0"
+            max="200"
+            step="1"
+            />
+          <h2 id="root-display" class="ml-4 text-gray-800 text-2xl">17</h2>
+        </div>
       </div>
 
-      <header id="root-display">17</header>
+      <section id="canvas-div">
+        <canvas id="canvas" class="w-full h-full"></canvas>
+      </section>
     </div>
-
-    <section id="canvas-div" class="canvas-container">
-      <canvas id="canvas" class="canvas"></canvas>
-    </section>
   </body>
 </html>
