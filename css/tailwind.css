@@ -34,4 +34,14 @@
   @apply text-gray-600;
 }
 
+.tile {
+  @apply flex w-16 h-16 justify-center items-center;
+}
+.tile:hover {
+  @apply cursor-pointer;
+}
+.tile:focus {
+  @apply shadow-outline;
+}
+
 @tailwind utilities;

@@ -683,6 +683,25 @@ video {
   color: #718096;
 }
 
+.tile {
+  display: -webkit-box;
+  display: flex;
+  width: 4rem;
+  height: 4rem;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+}
+
+.tile:hover {
+  cursor: pointer;
+}
+
+.tile:focus {
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
