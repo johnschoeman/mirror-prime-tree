@@ -1,6 +1,5 @@
 import initMirrorTree from "./MirrorPrime"
 import initRecaman from "./Recaman"
-import initCircles from "./circles"
 import initKochCurve from "./koch_curve"
 import initMandlebrot from "./mandlebrot"
 import initSolarSystem from "./solar_system"
@@ -17,10 +16,6 @@ window.addEventListener("DOMContentLoaded", () => {
     }
     case "Recaman": {
       initRecaman()
-      break
-    }
-    case "Circles": {
-      initCircles()
       break
     }
     case "KochCurve": {
