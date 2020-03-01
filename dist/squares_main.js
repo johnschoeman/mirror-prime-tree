@@ -4355,7 +4355,7 @@ function _Browser_load(url)
 		}
 	}));
 }
-var $author$project$Squares$Main$init = 'Squares';
+var $author$project$Squares$Main$init = {colNumber: 3};
 var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
@@ -5168,11 +5168,283 @@ var $elm$browser$Browser$sandbox = function (impl) {
 };
 var $author$project$Squares$Main$update = F2(
 	function (msg, model) {
-		return model + '!';
+		if (msg.$ === 'IncrementColNumber') {
+			return _Utils_update(
+				model,
+				{colNumber: model.colNumber + 1});
+		} else {
+			return _Utils_update(
+				model,
+				{colNumber: model.colNumber - 1});
+		}
 	});
-var $author$project$Squares$Main$Bang = {$: 'Bang'};
-var $elm$html$Html$button = _VirtualDom_node('button');
+var $author$project$Squares$Main$DecrementColNumber = {$: 'DecrementColNumber'};
+var $author$project$Squares$Main$IncrementColNumber = {$: 'IncrementColNumber'};
+var $elm$json$Json$Encode$string = _Json_wrap;
+var $elm$html$Html$Attributes$stringProperty = F2(
+	function (key, string) {
+		return A2(
+			_VirtualDom_property,
+			key,
+			$elm$json$Json$Encode$string(string));
+	});
+var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
 var $elm$html$Html$div = _VirtualDom_node('div');
+var $elm$core$List$repeatHelp = F3(
+	function (result, n, value) {
+		repeatHelp:
+		while (true) {
+			if (n <= 0) {
+				return result;
+			} else {
+				var $temp$result = A2($elm$core$List$cons, value, result),
+					$temp$n = n - 1,
+					$temp$value = value;
+				result = $temp$result;
+				n = $temp$n;
+				value = $temp$value;
+				continue repeatHelp;
+			}
+		}
+	});
+var $elm$core$List$repeat = F2(
+	function (n, value) {
+		return A3($elm$core$List$repeatHelp, _List_Nil, n, value);
+	});
+var $elm$svg$Svg$trustedNode = _VirtualDom_nodeNS('http://www.w3.org/2000/svg');
+var $elm$svg$Svg$circle = $elm$svg$Svg$trustedNode('circle');
+var $elm$svg$Svg$Attributes$cx = _VirtualDom_attribute('cx');
+var $elm$svg$Svg$Attributes$cy = _VirtualDom_attribute('cy');
+var $elm$svg$Svg$Attributes$fill = _VirtualDom_attribute('fill');
+var $tesk9$palette$Color$Color = function (a) {
+	return {$: 'Color', a: a};
+};
+var $tesk9$palette$Internal$Color$RGBA = function (a) {
+	return {$: 'RGBA', a: a};
+};
+var $tesk9$palette$Internal$RGBA$Color = function (a) {
+	return {$: 'Color', a: a};
+};
+var $elm$core$Basics$clamp = F3(
+	function (low, high, number) {
+		return (_Utils_cmp(number, low) < 0) ? low : ((_Utils_cmp(number, high) > 0) ? high : number);
+	});
+var $tesk9$palette$Internal$RGBA$fromChannels = function (_v0) {
+	var red = _v0.red;
+	var green = _v0.green;
+	var blue = _v0.blue;
+	var alpha = _v0.alpha;
+	return $tesk9$palette$Internal$RGBA$Color(
+		{
+			alpha: alpha,
+			blue: A3($elm$core$Basics$clamp, 0, 255, blue),
+			green: A3($elm$core$Basics$clamp, 0, 255, green),
+			red: A3($elm$core$Basics$clamp, 0, 255, red)
+		});
+};
+var $tesk9$palette$Internal$Color$fromRGBA = function (values) {
+	return $tesk9$palette$Internal$Color$RGBA(
+		$tesk9$palette$Internal$RGBA$fromChannels(values));
+};
+var $tesk9$palette$Internal$Opacity$Opacity = function (a) {
+	return {$: 'Opacity', a: a};
+};
+var $elm$core$Basics$composeL = F3(
+	function (g, f, x) {
+		return g(
+			f(x));
+	});
+var $tesk9$palette$Internal$Opacity$custom = A2(
+	$elm$core$Basics$composeL,
+	$tesk9$palette$Internal$Opacity$Opacity,
+	A2($elm$core$Basics$clamp, 0, 1.0));
+var $tesk9$palette$Internal$Opacity$opaque = $tesk9$palette$Internal$Opacity$custom(1.0);
+var $tesk9$palette$Color$fromRGB = function (_v0) {
+	var red = _v0.a;
+	var green = _v0.b;
+	var blue = _v0.c;
+	return $tesk9$palette$Color$Color(
+		$tesk9$palette$Internal$Color$fromRGBA(
+			{alpha: $tesk9$palette$Internal$Opacity$opaque, blue: blue, green: green, red: red}));
+};
+var $elm$core$Debug$log = _Debug_log;
+var $elm$core$Basics$modBy = _Basics_modBy;
+var $elm$core$Basics$negate = function (n) {
+	return -n;
+};
+var $elm$core$Basics$abs = function (n) {
+	return (n < 0) ? (-n) : n;
+};
+var $tesk9$palette$Internal$RGBA$fromHSLA = function (hsl) {
+	var hue = hsl.hue;
+	var alpha = hsl.alpha;
+	var saturation = hsl.saturation / 100;
+	var lightness = hsl.lightness / 100;
+	var hueIsBetween = F2(
+		function (lowerBound, upperBound) {
+			return (_Utils_cmp(lowerBound, hue) < 1) && (_Utils_cmp(hue, upperBound) < 1);
+		});
+	var chroma = (1 - $elm$core$Basics$abs((2 * lightness) - 1)) * saturation;
+	var lightnessModifier = lightness - (chroma / 2);
+	var zigUp = function (xIntercept) {
+		return (chroma * (hue - xIntercept)) / 60;
+	};
+	var zigDown = function (xIntercept) {
+		return (-1) * zigUp(xIntercept);
+	};
+	var _v0 = A2(hueIsBetween, 0, 60) ? _Utils_Tuple3(
+		chroma,
+		zigUp(0),
+		0) : (A2(hueIsBetween, 60, 120) ? _Utils_Tuple3(
+		zigDown(120),
+		chroma,
+		0) : (A2(hueIsBetween, 120, 180) ? _Utils_Tuple3(
+		0,
+		chroma,
+		zigUp(120)) : (A2(hueIsBetween, 180, 240) ? _Utils_Tuple3(
+		0,
+		zigDown(240),
+		chroma) : (A2(hueIsBetween, 240, 300) ? _Utils_Tuple3(
+		zigUp(240),
+		0,
+		chroma) : _Utils_Tuple3(
+		chroma,
+		0,
+		zigDown(360))))));
+	var r = _v0.a;
+	var g = _v0.b;
+	var b = _v0.c;
+	return $tesk9$palette$Internal$RGBA$fromChannels(
+		{alpha: alpha, blue: (b + lightnessModifier) * 255, green: (g + lightnessModifier) * 255, red: (r + lightnessModifier) * 255});
+};
+var $tesk9$palette$Internal$HSLA$toChannels = function (_v0) {
+	var values = _v0.a;
+	return values;
+};
+var $tesk9$palette$Internal$Color$convertHSLToRGBA = function (color) {
+	return $tesk9$palette$Internal$Color$RGBA(
+		$tesk9$palette$Internal$RGBA$fromHSLA(
+			$tesk9$palette$Internal$HSLA$toChannels(color)));
+};
+var $tesk9$palette$Internal$Color$asRGBA = function (color) {
+	asRGBA:
+	while (true) {
+		if (color.$ === 'RGBA') {
+			var values = color.a;
+			return values;
+		} else {
+			var hslValues = color.a;
+			var $temp$color = $tesk9$palette$Internal$Color$convertHSLToRGBA(hslValues);
+			color = $temp$color;
+			continue asRGBA;
+		}
+	}
+};
+var $elm$core$String$fromFloat = _String_fromNumber;
+var $tesk9$palette$Internal$RGBA$toStringWithoutOpacity = function (_v0) {
+	var red = _v0.a.red;
+	var green = _v0.a.green;
+	var blue = _v0.a.blue;
+	return 'rgb(' + ($elm$core$String$fromFloat(red) + (',' + ($elm$core$String$fromFloat(green) + (',' + ($elm$core$String$fromFloat(blue) + ')')))));
+};
+var $tesk9$palette$Color$toRGBString = function (_v0) {
+	var color = _v0.a;
+	return $tesk9$palette$Internal$RGBA$toStringWithoutOpacity(
+		$tesk9$palette$Internal$Color$asRGBA(color));
+};
+var $author$project$Squares$Main$getFillColor = F2(
+	function (rowIdx, colIdx) {
+		var red = A2($elm$core$Basics$modBy, 255, 10 * (rowIdx + colIdx));
+		var green = A2($elm$core$Basics$modBy, 255, 12 * (rowIdx + colIdx));
+		return $tesk9$palette$Color$toRGBString(
+			$tesk9$palette$Color$fromRGB(
+				_Utils_Tuple3(
+					A2($elm$core$Debug$log, 'red', red),
+					A2($elm$core$Debug$log, 'green', green),
+					54)));
+	});
+var $elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
+var $elm$svg$Svg$Attributes$r = _VirtualDom_attribute('r');
+var $elm$svg$Svg$svg = $elm$svg$Svg$trustedNode('svg');
+var $elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
+var $elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
+var $author$project$Squares$Main$dot = F2(
+	function (rowIdx, colIdx) {
+		var fillColor = A2($author$project$Squares$Main$getFillColor, rowIdx, colIdx);
+		return A2(
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$class('w-full h-full flex justify-center items-center')
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm$svg$Svg$svg,
+					_List_fromArray(
+						[
+							$elm$svg$Svg$Attributes$width('44'),
+							$elm$svg$Svg$Attributes$height('44'),
+							$elm$svg$Svg$Attributes$viewBox('0 0 44 44')
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm$svg$Svg$circle,
+							_List_fromArray(
+								[
+									$elm$svg$Svg$Attributes$cx('22'),
+									$elm$svg$Svg$Attributes$cy('22'),
+									$elm$svg$Svg$Attributes$fill(fillColor),
+									$elm$svg$Svg$Attributes$r('22'),
+									$elm$svg$Svg$Attributes$width('44'),
+									$elm$svg$Svg$Attributes$height('44')
+								]),
+							_List_Nil)
+						]))
+				]));
+	});
+var $author$project$Squares$Main$rowToDots = F2(
+	function (rowIdx, row) {
+		return A2(
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$class('flex flex-row justify-center items-center')
+				]),
+			A2(
+				$elm$core$List$indexedMap,
+				F2(
+					function (colIdx, _v0) {
+						return A2($author$project$Squares$Main$dot, rowIdx, colIdx);
+					}),
+				row));
+	});
+var $author$project$Squares$Main$listOfDots = function (count) {
+	var baseMatrix = A2(
+		$elm$core$List$repeat,
+		count,
+		A2($elm$core$List$repeat, count, 0));
+	return A2(
+		$elm$core$List$indexedMap,
+		F2(
+			function (rowIdx, row) {
+				return A2($author$project$Squares$Main$rowToDots, rowIdx, row);
+			}),
+		baseMatrix);
+};
+var $author$project$Squares$Main$art = function (model) {
+	var colNumber = model.colNumber;
+	var gridClass = 'grid grid-cols-' + $elm$core$String$fromInt(colNumber);
+	return A2(
+		$elm$html$Html$div,
+		_List_fromArray(
+			[
+				$elm$html$Html$Attributes$class(gridClass + 'flex my-vmin m-auto border-2')
+			]),
+		$author$project$Squares$Main$listOfDots(colNumber));
+};
+var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 'Normal', a: a};
 };
@@ -5190,32 +5462,47 @@ var $elm$html$Html$Events$onClick = function (msg) {
 		'click',
 		$elm$json$Json$Decode$succeed(msg));
 };
-var $elm$html$Html$p = _VirtualDom_node('p');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $author$project$Squares$Main$view = function (model) {
+	var buttonStyle = 'mr-4 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded';
 	return A2(
 		$elm$html$Html$div,
-		_List_Nil,
+		_List_fromArray(
+			[
+				$elm$html$Html$Attributes$class('p-32')
+			]),
 		_List_fromArray(
 			[
 				A2(
-				$elm$html$Html$p,
+				$elm$html$Html$div,
 				_List_Nil,
 				_List_fromArray(
 					[
-						$elm$html$Html$text(model)
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class(buttonStyle),
+								$elm$html$Html$Events$onClick($author$project$Squares$Main$IncrementColNumber)
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('+')
+							])),
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class(buttonStyle),
+								$elm$html$Html$Events$onClick($author$project$Squares$Main$DecrementColNumber)
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('-')
+							]))
 					])),
-				A2(
-				$elm$html$Html$button,
-				_List_fromArray(
-					[
-						$elm$html$Html$Events$onClick($author$project$Squares$Main$Bang)
-					]),
-				_List_fromArray(
-					[
-						$elm$html$Html$text('Bang')
-					]))
+				$author$project$Squares$Main$art(model)
 			]));
 };
 var $author$project$Squares$Main$main = $elm$browser$Browser$sandbox(

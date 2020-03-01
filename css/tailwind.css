@@ -44,4 +44,10 @@
   @apply shadow-outline;
 }
 
+.my-vmin {
+  width: 65vmin;
+  height: 65vmin;
+  transform: rotate(45deg);
+}
+
 @tailwind utilities;
