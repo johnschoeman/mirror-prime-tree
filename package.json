@@ -11,7 +11,9 @@
     "webpack": "webpack --watch",
     "prettier": "prettier \"src/**/*.+(js|jsx|ts|tsx|json)\"",
     "format": "yarn prettier --write",
-    "build": "postcss css/tailwind.css -o dist/tailwind.css",
+    "buildCss": "postcss css/tailwind.css -o dist/tailwind.css",
+    "buildElm": "elm-app make src/Squares/Main.elm --output dist/squares_main.js",
+    "build": "yarn buildCss && yarn buildElm",
     "watch": "yarn build --watch",
     "liveServer": "live-server ."
   },
