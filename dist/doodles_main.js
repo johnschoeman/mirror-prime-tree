@@ -5362,17 +5362,15 @@ var $author$project$Squares$Main$getFillColor = F2(
 		var green = A2($elm$core$Basics$modBy, 255, 12 * (rowIdx + colIdx));
 		return $tesk9$palette$Color$toRGBString(
 			$tesk9$palette$Color$fromRGB(
-				_Utils_Tuple3(red, green, 60)));
+				_Utils_Tuple3(red, green, 255)));
 	});
 var $elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
 var $elm$svg$Svg$Attributes$r = _VirtualDom_attribute('r');
 var $elm$svg$Svg$svg = $elm$svg$Svg$trustedNode('svg');
 var $elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
 var $elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
-var $author$project$Squares$Main$dot = F3(
-	function (w, rowIdx, colIdx) {
-		var wString = $elm$core$String$fromInt(w);
-		var rString = $elm$core$String$fromInt((w / 2) | 0);
+var $author$project$Squares$Main$dot = F2(
+	function (rowIdx, colIdx) {
 		var fillColor = A2($author$project$Squares$Main$getFillColor, rowIdx, colIdx);
 		return A2(
 			$elm$html$Html$div,
@@ -5386,9 +5384,9 @@ var $author$project$Squares$Main$dot = F3(
 					$elm$svg$Svg$svg,
 					_List_fromArray(
 						[
-							$elm$svg$Svg$Attributes$width(wString),
-							$elm$svg$Svg$Attributes$height(wString),
-							$elm$svg$Svg$Attributes$viewBox('0 0 ' + (wString + (' ' + wString)))
+							$elm$svg$Svg$Attributes$width('44'),
+							$elm$svg$Svg$Attributes$height('44'),
+							$elm$svg$Svg$Attributes$viewBox('0 0 44 44')
 						]),
 					_List_fromArray(
 						[
@@ -5396,68 +5394,56 @@ var $author$project$Squares$Main$dot = F3(
 							$elm$svg$Svg$circle,
 							_List_fromArray(
 								[
-									$elm$svg$Svg$Attributes$cx(rString),
-									$elm$svg$Svg$Attributes$cy(rString),
+									$elm$svg$Svg$Attributes$cx('22'),
+									$elm$svg$Svg$Attributes$cy('22'),
 									$elm$svg$Svg$Attributes$fill(fillColor),
-									$elm$svg$Svg$Attributes$r(rString),
-									$elm$svg$Svg$Attributes$width(
-									$elm$core$String$fromInt(w)),
-									$elm$svg$Svg$Attributes$height(
-									$elm$core$String$fromInt(w))
+									$elm$svg$Svg$Attributes$r('22'),
+									$elm$svg$Svg$Attributes$width('44'),
+									$elm$svg$Svg$Attributes$height('44')
 								]),
 							_List_Nil)
 						]))
 				]));
 	});
-var $author$project$Squares$Main$rowToDots = F3(
-	function (w, rowIdx, row) {
+var $author$project$Squares$Main$rowToDots = F2(
+	function (rowIdx, row) {
 		return A2(
 			$elm$html$Html$div,
 			_List_fromArray(
 				[
-					$elm$html$Html$Attributes$class('flex flex-row')
+					$elm$html$Html$Attributes$class('flex flex-row justify-center items-center')
 				]),
 			A2(
 				$elm$core$List$indexedMap,
 				F2(
 					function (colIdx, _v0) {
-						return A3($author$project$Squares$Main$dot, w, rowIdx, colIdx);
+						return A2($author$project$Squares$Main$dot, rowIdx, colIdx);
 					}),
 				row));
 	});
-var $author$project$Squares$Main$listOfDots = F2(
-	function (w, count) {
-		var baseMatrix = A2(
-			$elm$core$List$repeat,
-			count,
-			A2($elm$core$List$repeat, count, 0));
-		return A2(
-			$elm$core$List$indexedMap,
-			F2(
-				function (rowIdx, row) {
-					return A3($author$project$Squares$Main$rowToDots, w, rowIdx, row);
-				}),
-			baseMatrix);
-	});
-var $elm$core$Basics$min = F2(
-	function (x, y) {
-		return (_Utils_cmp(x, y) < 0) ? x : y;
-	});
-var $author$project$Squares$Main$art = F2(
-	function (viewport, colNumber) {
-		var _v0 = viewport.viewport;
-		var width = _v0.width;
-		var height = _v0.height;
-		var m = A2($elm$core$Basics$min, width, height);
-		var w = $elm$core$Basics$floor(m / (colNumber * 2));
-		return A2(
-			$elm$html$Html$div,
-			_List_fromArray(
-				[
-					$elm$html$Html$Attributes$class('grid my-vmin m-auto border-2')
-				]),
-			A2($author$project$Squares$Main$listOfDots, w, colNumber));
-	});
+var $author$project$Squares$Main$listOfDots = function (count) {
+	var baseMatrix = A2(
+		$elm$core$List$repeat,
+		count,
+		A2($elm$core$List$repeat, count, 0));
+	return A2(
+		$elm$core$List$indexedMap,
+		F2(
+			function (rowIdx, row) {
+				return A2($author$project$Squares$Main$rowToDots, rowIdx, row);
+			}),
+		baseMatrix);
+};
+var $author$project$Squares$Main$art = function (model) {
+	var colNumber = model.colNumber;
+	return A2(
+		$elm$html$Html$div,
+		_List_fromArray(
+			[
+				$elm$html$Html$Attributes$class('flex my-vmin m-auto border-2')
+			]),
+		$author$project$Squares$Main$listOfDots(colNumber));
+};
 var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 'Normal', a: a};
@@ -5519,7 +5505,9 @@ var $author$project$Squares$Main$view = function (model) {
 									$elm$html$Html$text('-')
 								]))
 						])),
-					A2($author$project$Squares$Main$art, viewport, model.colNumber)
+					$author$project$Squares$Main$art(model),
+					$elm$html$Html$text(
+					$elm$core$String$fromFloat(viewport.viewport.width))
 				]));
 	} else {
 		return A2(

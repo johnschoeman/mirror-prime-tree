@@ -1,7 +1,7 @@
 module Squares.Main exposing (..)
 
 import Browser
-import Browser.Dom exposing (getViewport)
+import Browser.Dom exposing (Viewport, getViewport)
 import Color
 import Html exposing (Html, button, div, p, text)
 import Html.Attributes exposing (class)
@@ -13,26 +13,29 @@ import Task
 
 main : Program () Model Msg
 main =
-    Browser.sandbox
+    Browser.element
         { init = init
         , view = view
         , update = update
+        , subscriptions = \_ -> Sub.none
         }
 
 
 type alias Model =
-    { colNumber : Int
+    { viewport : Maybe Viewport
+    , colNumber : Int
     }
 
 
 type Msg
-    = IncrementColNumber
+    = GotViewport Viewport
+    | IncrementColNumber
     | DecrementColNumber
 
 
-init : Model
-init =
-    { colNumber = 3 }
+init : () -> ( Model, Cmd Msg )
+init flags =
+    ( { viewport = Nothing, colNumber = 6 }, Task.perform GotViewport getViewport )
 
 
 view : Model -> Html Msg
@@ -41,57 +44,71 @@ view model =
         buttonStyle =
             "mr-4 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
     in
-    div [ class "p-32" ]
-        [ div []
-            [ button [ class buttonStyle, onClick IncrementColNumber ] [ text "+" ]
-            , button [ class buttonStyle, onClick DecrementColNumber ] [ text "-" ]
-            ]
-        , art model
-        ]
+    case model.viewport of
+        Just viewport ->
+            div [ class "p-32" ]
+                [ div []
+                    [ button [ class buttonStyle, onClick IncrementColNumber ] [ text "+" ]
+                    , button [ class buttonStyle, onClick DecrementColNumber ] [ text "-" ]
+                    ]
+                , art viewport model.colNumber
+                ]
+
+        Nothing ->
+            div [] [ text "loading..." ]
 
 
-art : Model -> Html Msg
-art model =
+art : Viewport -> Int -> Html Msg
+art viewport colNumber =
     let
-        colNumber =
-            model.colNumber
+        { width, height } =
+            viewport.viewport
 
-        gridClass =
-            "grid grid-cols-" ++ String.fromInt colNumber
+        m =
+            min width height
+
+        w =
+            floor <| m / toFloat (colNumber * 2)
     in
-    div [ class (gridClass ++ "flex my-vmin m-auto border-2") ] (listOfDots <| colNumber)
+    div [ class "grid my-vmin m-auto border-2" ] (listOfDots w colNumber)
 
 
-listOfDots : Int -> List (Html msg)
-listOfDots count =
+listOfDots : Int -> Int -> List (Html msg)
+listOfDots w count =
     let
         baseMatrix =
             List.repeat count (List.repeat count 0)
     in
-    List.indexedMap (\rowIdx row -> rowToDots rowIdx row) baseMatrix
+    List.indexedMap (\rowIdx row -> rowToDots w rowIdx row) baseMatrix
 
 
-rowToDots : Int -> List a -> Html msg
-rowToDots rowIdx row =
-    div [ class "flex flex-row justify-center items-center" ]
-        (List.indexedMap (\colIdx _ -> dot rowIdx colIdx) row)
+rowToDots : Int -> Int -> List a -> Html msg
+rowToDots w rowIdx row =
+    div [ class "flex flex-row" ]
+        (List.indexedMap (\colIdx _ -> dot w rowIdx colIdx) row)
 
 
-dot : Int -> Int -> Html msg
-dot rowIdx colIdx =
+dot : Int -> Int -> Int -> Html msg
+dot w rowIdx colIdx =
     let
         fillColor =
             getFillColor rowIdx colIdx
+
+        wString =
+            String.fromInt w
+
+        rString =
+            String.fromInt (w // 2)
     in
     div [ class "w-full h-full flex justify-center items-center" ]
-        [ svg [ width "44", height "44", viewBox "0 0 44 44" ]
+        [ svg [ width wString, height wString, viewBox ("0 0 " ++ wString ++ " " ++ wString) ]
             [ circle
-                [ cx "22"
-                , cy "22"
+                [ cx rString
+                , cy rString
                 , fill fillColor
-                , r "22"
-                , width "44"
-                , height "44"
+                , r rString
+                , width <| String.fromInt w
+                , height <| String.fromInt w
                 ]
                 []
             ]
@@ -107,7 +124,7 @@ getFillColor rowIdx colIdx =
         green =
             toFloat (modBy 255 (12 * (rowIdx + colIdx)))
     in
-    Color.fromRGB ( Debug.log "red" red, Debug.log "green" green, 54 )
+    Color.fromRGB ( red, green, 60 )
         |> Color.toRGBString
 
 
@@ -131,11 +148,14 @@ square =
         ]
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        GotViewport viewport ->
+            ( { model | viewport = Just viewport }, Cmd.none )
+
         IncrementColNumber ->
-            { model | colNumber = model.colNumber + 1 }
+            ( { model | colNumber = model.colNumber + 1 }, Cmd.none )
 
         DecrementColNumber ->
-            { model | colNumber = model.colNumber - 1 }
+            ( { model | colNumber = model.colNumber - 1 }, Cmd.none )
