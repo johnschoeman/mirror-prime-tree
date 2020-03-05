@@ -6,8 +6,10 @@ import Color
 import Html exposing (Html, button, div, p, text)
 import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
+import Random
 import Svg exposing (circle, rect, svg)
 import Svg.Attributes exposing (cx, cy, fill, height, r, rx, ry, viewBox, width, x, y)
+import Svg.Events
 import Task
 
 
@@ -24,18 +26,55 @@ main =
 type alias Model =
     { viewport : Maybe Viewport
     , colNumber : Int
+    , baseColor : DotColor
     }
+
+
+type PrimaryColor
+    = Red
+    | Green
+    | Blue
+
+
+type alias DotColor =
+    { red : Int
+    , green : Int
+    , blue : Int
+    }
+
+
+showDotColor : DotColor -> String
+showDotColor { red, green, blue } =
+    "Red: "
+        ++ String.fromInt red
+        ++ " Green: "
+        ++ String.fromInt green
+        ++ " Blue: "
+        ++ String.fromInt blue
 
 
 type Msg
     = GotViewport Viewport
     | IncrementColNumber
     | DecrementColNumber
+    | ClickDot DotColor
+    | RandomizeColor Int
+    | GetRandomColor
 
 
 init : () -> ( Model, Cmd Msg )
 init flags =
-    ( { viewport = Nothing, colNumber = 6 }, Task.perform GotViewport getViewport )
+    ( { viewport = Nothing
+      , colNumber = 6
+      , baseColor = { red = 12, green = 12, blue = 12 }
+      }
+    , Task.perform GotViewport getViewport
+    )
+
+
+generateBaseColor : Cmd Msg
+generateBaseColor =
+    Random.generate RandomizeColor <| Random.int 1 12
 
 
 view : Model -> Html Msg
@@ -50,16 +89,18 @@ view model =
                 [ div []
                     [ button [ class buttonStyle, onClick IncrementColNumber ] [ text "+" ]
                     , button [ class buttonStyle, onClick DecrementColNumber ] [ text "-" ]
+                    , button [ class buttonStyle, onClick GetRandomColor ] [ text "R" ]
                     ]
-                , art viewport model.colNumber
+                , div [] [ text <| showDotColor model.baseColor ]
+                , art viewport model.colNumber model.baseColor
                 ]
 
         Nothing ->
             div [] [ text "loading..." ]
 
 
-art : Viewport -> Int -> Html Msg
-art viewport colNumber =
+art : Viewport -> Int -> DotColor -> Html Msg
+art viewport colNumber baseColor =
     let
         { width, height } =
             viewport.viewport
@@ -68,31 +109,44 @@ art viewport colNumber =
             min width height
 
         w =
-            floor <| m / toFloat (colNumber * 2)
+            ceiling <| (m + 100) / toFloat (colNumber * 2)
     in
-    div [ class "grid my-vmin m-auto border-2" ] (listOfDots w colNumber)
+    div [ class "grid my-vmin m-auto border-2" ] (listOfDots baseColor w colNumber)
 
 
-listOfDots : Int -> Int -> List (Html msg)
-listOfDots w count =
+listOfDots : DotColor -> Int -> Int -> List (Html Msg)
+listOfDots baseColor w count =
     let
         baseMatrix =
             List.repeat count (List.repeat count 0)
     in
-    List.indexedMap (\rowIdx row -> rowToDots w rowIdx row) baseMatrix
+    List.indexedMap (\rowIdx row -> rowToDots baseColor w rowIdx row) baseMatrix
 
 
-rowToDots : Int -> Int -> List a -> Html msg
-rowToDots w rowIdx row =
+rowToDots : DotColor -> Int -> Int -> List a -> Html Msg
+rowToDots baseColor w rowIdx row =
     div [ class "flex flex-row" ]
-        (List.indexedMap (\colIdx _ -> dot w rowIdx colIdx) row)
+        (List.indexedMap (\colIdx _ -> dot baseColor w rowIdx colIdx) row)
 
 
-dot : Int -> Int -> Int -> Html msg
-dot w rowIdx colIdx =
+dot : DotColor -> Int -> Int -> Int -> Html Msg
+dot { red, green, blue } w rowIdx colIdx =
     let
+        nextRed =
+            toFloat (modBy 255 (red * colIdx))
+
+        nextGreen =
+            toFloat (modBy 255 (green * (rowIdx + colIdx)))
+
+        nextBlue =
+            toFloat (modBy 255 (blue * rowIdx))
+
+        dotColor =
+            DotColor red green blue
+
         fillColor =
-            getFillColor rowIdx colIdx
+            Color.fromRGB ( nextRed, nextGreen, nextBlue )
+                |> Color.toRGBString
 
         wString =
             String.fromInt w
@@ -101,7 +155,7 @@ dot w rowIdx colIdx =
             String.fromInt (w // 2)
     in
     div [ class "w-full h-full flex justify-center items-center" ]
-        [ svg [ width wString, height wString, viewBox ("0 0 " ++ wString ++ " " ++ wString) ]
+        [ svg [ Svg.Events.onClick <| ClickDot dotColor, width wString, height wString, viewBox ("0 0 " ++ wString ++ " " ++ wString) ]
             [ circle
                 [ cx rString
                 , cy rString
@@ -113,19 +167,6 @@ dot w rowIdx colIdx =
                 []
             ]
         ]
-
-
-getFillColor : Int -> Int -> String
-getFillColor rowIdx colIdx =
-    let
-        red =
-            toFloat (modBy 255 (10 * (rowIdx + colIdx)))
-
-        green =
-            toFloat (modBy 255 (12 * (rowIdx + colIdx)))
-    in
-    Color.fromRGB ( red, green, 60 )
-        |> Color.toRGBString
 
 
 square : Html msg
@@ -159,3 +200,52 @@ update msg model =
 
         DecrementColNumber ->
             ( { model | colNumber = model.colNumber - 1 }, Cmd.none )
+
+        ClickDot oldColor ->
+            let
+                nextColor =
+                    getNextColor oldColor
+            in
+            ( { model | baseColor = nextColor }, Cmd.none )
+
+        RandomizeColor color ->
+            let
+                nextColor =
+                    DotColor color 12 12
+            in
+            ( { model | baseColor = nextColor }, Cmd.none )
+
+        GetRandomColor ->
+            ( model, generateBaseColor )
+
+
+getNextColor : DotColor -> DotColor
+getNextColor color =
+    let
+        maxColor =
+            if Debug.log "red" color.red > color.green && color.green > color.blue then
+                Red
+
+            else if Debug.log "green" color.green > color.red && color.red > color.blue then
+                Green
+
+            else if Debug.log "blue" color.blue > color.red && color.red > color.green then
+                Blue
+
+            else
+                Red
+    in
+    case maxColor of
+        Red ->
+            { color | red = modColor <| color.red + 10, green = modColor <| color.green - 1, blue = modColor <| color.blue - 1 }
+
+        Green ->
+            { color | red = modColor <| color.red - 1, green = modColor <| color.green + 10, blue = modColor <| color.blue - 1 }
+
+        Blue ->
+            { color | red = modColor <| color.red - 1, green = modColor <| color.green - 1, blue = modColor <| color.blue + 10 }
+
+
+modColor : Int -> Int
+modColor c =
+    modBy 12 c

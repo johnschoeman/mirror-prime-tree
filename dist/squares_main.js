@@ -4355,6 +4355,89 @@ function _Browser_load(url)
 		}
 	}));
 }
+
+
+
+var _Bitwise_and = F2(function(a, b)
+{
+	return a & b;
+});
+
+var _Bitwise_or = F2(function(a, b)
+{
+	return a | b;
+});
+
+var _Bitwise_xor = F2(function(a, b)
+{
+	return a ^ b;
+});
+
+function _Bitwise_complement(a)
+{
+	return ~a;
+};
+
+var _Bitwise_shiftLeftBy = F2(function(offset, a)
+{
+	return a << offset;
+});
+
+var _Bitwise_shiftRightBy = F2(function(offset, a)
+{
+	return a >> offset;
+});
+
+var _Bitwise_shiftRightZfBy = F2(function(offset, a)
+{
+	return a >>> offset;
+});
+
+
+
+function _Time_now(millisToPosix)
+{
+	return _Scheduler_binding(function(callback)
+	{
+		callback(_Scheduler_succeed(millisToPosix(Date.now())));
+	});
+}
+
+var _Time_setInterval = F2(function(interval, task)
+{
+	return _Scheduler_binding(function(callback)
+	{
+		var id = setInterval(function() { _Scheduler_rawSpawn(task); }, interval);
+		return function() { clearInterval(id); };
+	});
+});
+
+function _Time_here()
+{
+	return _Scheduler_binding(function(callback)
+	{
+		callback(_Scheduler_succeed(
+			A2($elm$time$Time$customZone, -(new Date().getTimezoneOffset()), _List_Nil)
+		));
+	});
+}
+
+
+function _Time_getZoneName()
+{
+	return _Scheduler_binding(function(callback)
+	{
+		try
+		{
+			var name = $elm$time$Time$Name(Intl.DateTimeFormat().resolvedOptions().timeZone);
+		}
+		catch (e)
+		{
+			var name = $elm$time$Time$Offset(new Date().getTimezoneOffset());
+		}
+		callback(_Scheduler_succeed(name));
+	});
+}
 var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
@@ -5150,11 +5233,218 @@ var $author$project$Squares$Main$GotViewport = function (a) {
 var $elm$browser$Browser$Dom$getViewport = _Browser_withWindow(_Browser_getViewport);
 var $author$project$Squares$Main$init = function (flags) {
 	return _Utils_Tuple2(
-		{colNumber: 6, viewport: $elm$core$Maybe$Nothing},
+		{
+			baseColor: {blue: 12, green: 12, red: 12},
+			colNumber: 6,
+			viewport: $elm$core$Maybe$Nothing
+		},
 		A2($elm$core$Task$perform, $author$project$Squares$Main$GotViewport, $elm$browser$Browser$Dom$getViewport));
 };
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
+var $author$project$Squares$Main$DotColor = F3(
+	function (red, green, blue) {
+		return {blue: blue, green: green, red: red};
+	});
+var $author$project$Squares$Main$RandomizeColor = function (a) {
+	return {$: 'RandomizeColor', a: a};
+};
+var $elm$random$Random$Generate = function (a) {
+	return {$: 'Generate', a: a};
+};
+var $elm$random$Random$Seed = F2(
+	function (a, b) {
+		return {$: 'Seed', a: a, b: b};
+	});
+var $elm$core$Bitwise$shiftRightZfBy = _Bitwise_shiftRightZfBy;
+var $elm$random$Random$next = function (_v0) {
+	var state0 = _v0.a;
+	var incr = _v0.b;
+	return A2($elm$random$Random$Seed, ((state0 * 1664525) + incr) >>> 0, incr);
+};
+var $elm$random$Random$initialSeed = function (x) {
+	var _v0 = $elm$random$Random$next(
+		A2($elm$random$Random$Seed, 0, 1013904223));
+	var state1 = _v0.a;
+	var incr = _v0.b;
+	var state2 = (state1 + x) >>> 0;
+	return $elm$random$Random$next(
+		A2($elm$random$Random$Seed, state2, incr));
+};
+var $elm$time$Time$Name = function (a) {
+	return {$: 'Name', a: a};
+};
+var $elm$time$Time$Offset = function (a) {
+	return {$: 'Offset', a: a};
+};
+var $elm$time$Time$Zone = F2(
+	function (a, b) {
+		return {$: 'Zone', a: a, b: b};
+	});
+var $elm$time$Time$customZone = $elm$time$Time$Zone;
+var $elm$time$Time$Posix = function (a) {
+	return {$: 'Posix', a: a};
+};
+var $elm$time$Time$millisToPosix = $elm$time$Time$Posix;
+var $elm$time$Time$now = _Time_now($elm$time$Time$millisToPosix);
+var $elm$time$Time$posixToMillis = function (_v0) {
+	var millis = _v0.a;
+	return millis;
+};
+var $elm$random$Random$init = A2(
+	$elm$core$Task$andThen,
+	function (time) {
+		return $elm$core$Task$succeed(
+			$elm$random$Random$initialSeed(
+				$elm$time$Time$posixToMillis(time)));
+	},
+	$elm$time$Time$now);
+var $elm$random$Random$step = F2(
+	function (_v0, seed) {
+		var generator = _v0.a;
+		return generator(seed);
+	});
+var $elm$random$Random$onEffects = F3(
+	function (router, commands, seed) {
+		if (!commands.b) {
+			return $elm$core$Task$succeed(seed);
+		} else {
+			var generator = commands.a.a;
+			var rest = commands.b;
+			var _v1 = A2($elm$random$Random$step, generator, seed);
+			var value = _v1.a;
+			var newSeed = _v1.b;
+			return A2(
+				$elm$core$Task$andThen,
+				function (_v2) {
+					return A3($elm$random$Random$onEffects, router, rest, newSeed);
+				},
+				A2($elm$core$Platform$sendToApp, router, value));
+		}
+	});
+var $elm$random$Random$onSelfMsg = F3(
+	function (_v0, _v1, seed) {
+		return $elm$core$Task$succeed(seed);
+	});
+var $elm$random$Random$Generator = function (a) {
+	return {$: 'Generator', a: a};
+};
+var $elm$random$Random$map = F2(
+	function (func, _v0) {
+		var genA = _v0.a;
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var _v1 = genA(seed0);
+				var a = _v1.a;
+				var seed1 = _v1.b;
+				return _Utils_Tuple2(
+					func(a),
+					seed1);
+			});
+	});
+var $elm$random$Random$cmdMap = F2(
+	function (func, _v0) {
+		var generator = _v0.a;
+		return $elm$random$Random$Generate(
+			A2($elm$random$Random$map, func, generator));
+	});
+_Platform_effectManagers['Random'] = _Platform_createManager($elm$random$Random$init, $elm$random$Random$onEffects, $elm$random$Random$onSelfMsg, $elm$random$Random$cmdMap);
+var $elm$random$Random$command = _Platform_leaf('Random');
+var $elm$random$Random$generate = F2(
+	function (tagger, generator) {
+		return $elm$random$Random$command(
+			$elm$random$Random$Generate(
+				A2($elm$random$Random$map, tagger, generator)));
+	});
+var $elm$core$Bitwise$and = _Bitwise_and;
+var $elm$core$Basics$negate = function (n) {
+	return -n;
+};
+var $elm$core$Bitwise$xor = _Bitwise_xor;
+var $elm$random$Random$peel = function (_v0) {
+	var state = _v0.a;
+	var word = (state ^ (state >>> ((state >>> 28) + 4))) * 277803737;
+	return ((word >>> 22) ^ word) >>> 0;
+};
+var $elm$random$Random$int = F2(
+	function (a, b) {
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var _v0 = (_Utils_cmp(a, b) < 0) ? _Utils_Tuple2(a, b) : _Utils_Tuple2(b, a);
+				var lo = _v0.a;
+				var hi = _v0.b;
+				var range = (hi - lo) + 1;
+				if (!((range - 1) & range)) {
+					return _Utils_Tuple2(
+						(((range - 1) & $elm$random$Random$peel(seed0)) >>> 0) + lo,
+						$elm$random$Random$next(seed0));
+				} else {
+					var threshhold = (((-range) >>> 0) % range) >>> 0;
+					var accountForBias = function (seed) {
+						accountForBias:
+						while (true) {
+							var x = $elm$random$Random$peel(seed);
+							var seedN = $elm$random$Random$next(seed);
+							if (_Utils_cmp(x, threshhold) < 0) {
+								var $temp$seed = seedN;
+								seed = $temp$seed;
+								continue accountForBias;
+							} else {
+								return _Utils_Tuple2((x % range) + lo, seedN);
+							}
+						}
+					};
+					return accountForBias(seed0);
+				}
+			});
+	});
+var $author$project$Squares$Main$generateBaseColor = A2(
+	$elm$random$Random$generate,
+	$author$project$Squares$Main$RandomizeColor,
+	A2($elm$random$Random$int, 1, 12));
+var $author$project$Squares$Main$Blue = {$: 'Blue'};
+var $author$project$Squares$Main$Green = {$: 'Green'};
+var $author$project$Squares$Main$Red = {$: 'Red'};
+var $elm$core$Debug$log = _Debug_log;
+var $elm$core$Basics$modBy = _Basics_modBy;
+var $author$project$Squares$Main$modColor = function (c) {
+	return A2($elm$core$Basics$modBy, 12, c);
+};
+var $author$project$Squares$Main$getNextColor = function (color) {
+	var maxColor = ((_Utils_cmp(
+		A2($elm$core$Debug$log, 'red', color.red),
+		color.green) > 0) && (_Utils_cmp(color.green, color.blue) > 0)) ? $author$project$Squares$Main$Red : (((_Utils_cmp(
+		A2($elm$core$Debug$log, 'green', color.green),
+		color.red) > 0) && (_Utils_cmp(color.red, color.blue) > 0)) ? $author$project$Squares$Main$Green : (((_Utils_cmp(
+		A2($elm$core$Debug$log, 'blue', color.blue),
+		color.red) > 0) && (_Utils_cmp(color.red, color.green) > 0)) ? $author$project$Squares$Main$Blue : $author$project$Squares$Main$Red));
+	switch (maxColor.$) {
+		case 'Red':
+			return _Utils_update(
+				color,
+				{
+					blue: $author$project$Squares$Main$modColor(color.blue - 1),
+					green: $author$project$Squares$Main$modColor(color.green - 1),
+					red: $author$project$Squares$Main$modColor(color.red + 10)
+				});
+		case 'Green':
+			return _Utils_update(
+				color,
+				{
+					blue: $author$project$Squares$Main$modColor(color.blue - 1),
+					green: $author$project$Squares$Main$modColor(color.green + 10),
+					red: $author$project$Squares$Main$modColor(color.red - 1)
+				});
+		default:
+			return _Utils_update(
+				color,
+				{
+					blue: $author$project$Squares$Main$modColor(color.blue + 10),
+					green: $author$project$Squares$Main$modColor(color.green - 1),
+					red: $author$project$Squares$Main$modColor(color.red - 1)
+				});
+	}
+};
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$Squares$Main$update = F2(
@@ -5175,15 +5465,34 @@ var $author$project$Squares$Main$update = F2(
 						model,
 						{colNumber: model.colNumber + 1}),
 					$elm$core$Platform$Cmd$none);
-			default:
+			case 'DecrementColNumber':
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{colNumber: model.colNumber - 1}),
 					$elm$core$Platform$Cmd$none);
+			case 'ClickDot':
+				var oldColor = msg.a;
+				var nextColor = $author$project$Squares$Main$getNextColor(oldColor);
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{baseColor: nextColor}),
+					$elm$core$Platform$Cmd$none);
+			case 'RandomizeColor':
+				var color = msg.a;
+				var nextColor = A3($author$project$Squares$Main$DotColor, color, 12, 12);
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{baseColor: nextColor}),
+					$elm$core$Platform$Cmd$none);
+			default:
+				return _Utils_Tuple2(model, $author$project$Squares$Main$generateBaseColor);
 		}
 	});
 var $author$project$Squares$Main$DecrementColNumber = {$: 'DecrementColNumber'};
+var $author$project$Squares$Main$GetRandomColor = {$: 'GetRandomColor'};
 var $author$project$Squares$Main$IncrementColNumber = {$: 'IncrementColNumber'};
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
@@ -5216,6 +5525,9 @@ var $elm$core$List$repeat = F2(
 	function (n, value) {
 		return A3($elm$core$List$repeatHelp, _List_Nil, n, value);
 	});
+var $author$project$Squares$Main$ClickDot = function (a) {
+	return {$: 'ClickDot', a: a};
+};
 var $elm$svg$Svg$trustedNode = _VirtualDom_nodeNS('http://www.w3.org/2000/svg');
 var $elm$svg$Svg$circle = $elm$svg$Svg$trustedNode('circle');
 var $elm$svg$Svg$Attributes$cx = _VirtualDom_attribute('cx');
@@ -5272,10 +5584,26 @@ var $tesk9$palette$Color$fromRGB = function (_v0) {
 		$tesk9$palette$Internal$Color$fromRGBA(
 			{alpha: $tesk9$palette$Internal$Opacity$opaque, blue: blue, green: green, red: red}));
 };
-var $elm$core$Basics$modBy = _Basics_modBy;
-var $elm$core$Basics$negate = function (n) {
-	return -n;
+var $elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
+var $elm$virtual_dom$VirtualDom$Normal = function (a) {
+	return {$: 'Normal', a: a};
 };
+var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
+var $elm$html$Html$Events$on = F2(
+	function (event, decoder) {
+		return A2(
+			$elm$virtual_dom$VirtualDom$on,
+			event,
+			$elm$virtual_dom$VirtualDom$Normal(decoder));
+	});
+var $elm$svg$Svg$Events$onClick = function (msg) {
+	return A2(
+		$elm$html$Html$Events$on,
+		'click',
+		$elm$json$Json$Decode$succeed(msg));
+};
+var $elm$svg$Svg$Attributes$r = _VirtualDom_attribute('r');
+var $elm$svg$Svg$svg = $elm$svg$Svg$trustedNode('svg');
 var $elm$core$Basics$abs = function (n) {
 	return (n < 0) ? (-n) : n;
 };
@@ -5356,24 +5684,22 @@ var $tesk9$palette$Color$toRGBString = function (_v0) {
 	return $tesk9$palette$Internal$RGBA$toStringWithoutOpacity(
 		$tesk9$palette$Internal$Color$asRGBA(color));
 };
-var $author$project$Squares$Main$getFillColor = F2(
-	function (rowIdx, colIdx) {
-		var red = A2($elm$core$Basics$modBy, 255, 10 * (rowIdx + colIdx));
-		var green = A2($elm$core$Basics$modBy, 255, 12 * (rowIdx + colIdx));
-		return $tesk9$palette$Color$toRGBString(
-			$tesk9$palette$Color$fromRGB(
-				_Utils_Tuple3(red, green, 60)));
-	});
-var $elm$svg$Svg$Attributes$height = _VirtualDom_attribute('height');
-var $elm$svg$Svg$Attributes$r = _VirtualDom_attribute('r');
-var $elm$svg$Svg$svg = $elm$svg$Svg$trustedNode('svg');
 var $elm$svg$Svg$Attributes$viewBox = _VirtualDom_attribute('viewBox');
 var $elm$svg$Svg$Attributes$width = _VirtualDom_attribute('width');
-var $author$project$Squares$Main$dot = F3(
-	function (w, rowIdx, colIdx) {
+var $author$project$Squares$Main$dot = F4(
+	function (_v0, w, rowIdx, colIdx) {
+		var red = _v0.red;
+		var green = _v0.green;
+		var blue = _v0.blue;
 		var wString = $elm$core$String$fromInt(w);
 		var rString = $elm$core$String$fromInt((w / 2) | 0);
-		var fillColor = A2($author$project$Squares$Main$getFillColor, rowIdx, colIdx);
+		var nextRed = A2($elm$core$Basics$modBy, 255, red * colIdx);
+		var nextGreen = A2($elm$core$Basics$modBy, 255, green * (rowIdx + colIdx));
+		var nextBlue = A2($elm$core$Basics$modBy, 255, blue * rowIdx);
+		var fillColor = $tesk9$palette$Color$toRGBString(
+			$tesk9$palette$Color$fromRGB(
+				_Utils_Tuple3(nextRed, nextGreen, nextBlue)));
+		var dotColor = A3($author$project$Squares$Main$DotColor, red, green, blue);
 		return A2(
 			$elm$html$Html$div,
 			_List_fromArray(
@@ -5386,6 +5712,8 @@ var $author$project$Squares$Main$dot = F3(
 					$elm$svg$Svg$svg,
 					_List_fromArray(
 						[
+							$elm$svg$Svg$Events$onClick(
+							$author$project$Squares$Main$ClickDot(dotColor)),
 							$elm$svg$Svg$Attributes$width(wString),
 							$elm$svg$Svg$Attributes$height(wString),
 							$elm$svg$Svg$Attributes$viewBox('0 0 ' + (wString + (' ' + wString)))
@@ -5409,8 +5737,8 @@ var $author$project$Squares$Main$dot = F3(
 						]))
 				]));
 	});
-var $author$project$Squares$Main$rowToDots = F3(
-	function (w, rowIdx, row) {
+var $author$project$Squares$Main$rowToDots = F4(
+	function (baseColor, w, rowIdx, row) {
 		return A2(
 			$elm$html$Html$div,
 			_List_fromArray(
@@ -5421,12 +5749,12 @@ var $author$project$Squares$Main$rowToDots = F3(
 				$elm$core$List$indexedMap,
 				F2(
 					function (colIdx, _v0) {
-						return A3($author$project$Squares$Main$dot, w, rowIdx, colIdx);
+						return A4($author$project$Squares$Main$dot, baseColor, w, rowIdx, colIdx);
 					}),
 				row));
 	});
-var $author$project$Squares$Main$listOfDots = F2(
-	function (w, count) {
+var $author$project$Squares$Main$listOfDots = F3(
+	function (baseColor, w, count) {
 		var baseMatrix = A2(
 			$elm$core$List$repeat,
 			count,
@@ -5435,7 +5763,7 @@ var $author$project$Squares$Main$listOfDots = F2(
 			$elm$core$List$indexedMap,
 			F2(
 				function (rowIdx, row) {
-					return A3($author$project$Squares$Main$rowToDots, w, rowIdx, row);
+					return A4($author$project$Squares$Main$rowToDots, baseColor, w, rowIdx, row);
 				}),
 			baseMatrix);
 	});
@@ -5443,38 +5771,33 @@ var $elm$core$Basics$min = F2(
 	function (x, y) {
 		return (_Utils_cmp(x, y) < 0) ? x : y;
 	});
-var $author$project$Squares$Main$art = F2(
-	function (viewport, colNumber) {
+var $author$project$Squares$Main$art = F3(
+	function (viewport, colNumber, baseColor) {
 		var _v0 = viewport.viewport;
 		var width = _v0.width;
 		var height = _v0.height;
 		var m = A2($elm$core$Basics$min, width, height);
-		var w = $elm$core$Basics$floor(m / (colNumber * 2));
+		var w = $elm$core$Basics$ceiling((m + 100) / (colNumber * 2));
 		return A2(
 			$elm$html$Html$div,
 			_List_fromArray(
 				[
 					$elm$html$Html$Attributes$class('grid my-vmin m-auto border-2')
 				]),
-			A2($author$project$Squares$Main$listOfDots, w, colNumber));
+			A3($author$project$Squares$Main$listOfDots, baseColor, w, colNumber));
 	});
 var $elm$html$Html$button = _VirtualDom_node('button');
-var $elm$virtual_dom$VirtualDom$Normal = function (a) {
-	return {$: 'Normal', a: a};
-};
-var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
-var $elm$html$Html$Events$on = F2(
-	function (event, decoder) {
-		return A2(
-			$elm$virtual_dom$VirtualDom$on,
-			event,
-			$elm$virtual_dom$VirtualDom$Normal(decoder));
-	});
 var $elm$html$Html$Events$onClick = function (msg) {
 	return A2(
 		$elm$html$Html$Events$on,
 		'click',
 		$elm$json$Json$Decode$succeed(msg));
+};
+var $author$project$Squares$Main$showDotColor = function (_v0) {
+	var red = _v0.red;
+	var green = _v0.green;
+	var blue = _v0.blue;
+	return 'Red: ' + ($elm$core$String$fromInt(red) + (' Green: ' + ($elm$core$String$fromInt(green) + (' Blue: ' + $elm$core$String$fromInt(blue)))));
 };
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
@@ -5517,9 +5840,28 @@ var $author$project$Squares$Main$view = function (model) {
 							_List_fromArray(
 								[
 									$elm$html$Html$text('-')
+								])),
+							A2(
+							$elm$html$Html$button,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$class(buttonStyle),
+									$elm$html$Html$Events$onClick($author$project$Squares$Main$GetRandomColor)
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('R')
 								]))
 						])),
-					A2($author$project$Squares$Main$art, viewport, model.colNumber)
+					A2(
+					$elm$html$Html$div,
+					_List_Nil,
+					_List_fromArray(
+						[
+							$elm$html$Html$text(
+							$author$project$Squares$Main$showDotColor(model.baseColor))
+						])),
+					A3($author$project$Squares$Main$art, viewport, model.colNumber, model.baseColor)
 				]));
 	} else {
 		return A2(
