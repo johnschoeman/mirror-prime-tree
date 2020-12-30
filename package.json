@@ -8,13 +8,13 @@
     "lib": "lib"
   },
   "scripts": {
-    "webpack": "webpack --watch",
+    "webpackWatch": "webpack --watch",
     "prettier": "prettier \"src/**/*.+(js|jsx|ts|tsx|json)\"",
     "format": "yarn prettier --write",
     "buildCss": "postcss css/tailwind.css -o dist/tailwind.css",
     "buildElm": "elm-app make src/Squares/Main.elm --output dist/squares_main.js",
     "buildJs": "webpack",
-    "build": "yarn buildCss && yarn buildElm && buildJs",
+    "build": "yarn buildCss && yarn buildElm && yarn buildJs",
     "watch": "chokidar '**/*.elm' -c 'elm make ./src/Squares/Main.elm --output ./dist/squares_main.js' --initial",
     "liveServer": "live-server ."
   },

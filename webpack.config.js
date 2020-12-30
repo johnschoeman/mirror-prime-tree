@@ -27,5 +27,4 @@ module.exports = {
     path: __dirname,
     filename: "./dist/main.js",
   },
-  watch: true,
 }
