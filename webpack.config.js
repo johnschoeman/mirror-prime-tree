@@ -1,3 +1,7 @@
+const path = require("path")
+const webpack = require("webpack")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+
 module.exports = {
   mode: "production",
   devtool: "source-map",
@@ -24,7 +28,13 @@ module.exports = {
   },
   entry: "./src/index.js",
   output: {
-    path: __dirname,
-    filename: "./dist/main.js",
+    path: path.resolve("./dist"),
+    filename: "main.js",
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: path.resolve("./index.html"),
+    }),
+  ],
 }
