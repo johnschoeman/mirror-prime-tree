@@ -1,4 +1,4 @@
-import { Shape, Asteroid, Circle, Rectangle } from "./shapes"
+import { Shape, Asteroid } from "./Shapes"
 import { HtmlHelpers } from "../utils"
 
 const runGame = (asteroidCount: number) => {
