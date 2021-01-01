@@ -13,7 +13,8 @@
     "format": "yarn prettier --write",
     "buildCss": "postcss css/tailwind.css -o dist/tailwind.css",
     "buildJs": "webpack",
-    "build": "yarn buildCss && yarn buildJs",
+    "build": "NODE_ENV=production yarn buildCss && yarn buildJs && bin/build_dist.sh",
+    "buildDev": "yarn buildCss && yarn buildJs",
     "liveServer": "live-server ."
   },
   "repository": {

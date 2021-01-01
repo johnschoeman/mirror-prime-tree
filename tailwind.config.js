@@ -1,4 +1,10 @@
 module.exports = {
+  purge: [
+    "./doodles/**/*.html",
+    "./src/**/*.js",
+    "./src/**/*.ts",
+    "./src/**/*.elm",
+  ],
   theme: {
     extend: {},
   },
