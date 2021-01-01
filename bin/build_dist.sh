@@ -5,6 +5,6 @@ then
   mkdir dist
 fi
 
-cp -r ./assets ./dist/assets
-cp -r ./doodles ./dist/doodles
-
+cp -r ./assets ./dist/
+cp -r ./doodles ./dist/
+cp ./css/inputs.css ./dist/inputs.css

@@ -12,10 +12,10 @@
     "prettier": "prettier \"src/**/*.+(js|jsx|ts|tsx|json)\"",
     "format": "yarn prettier --write",
     "buildCss": "postcss css/tailwind.css -o dist/tailwind.css",
-    "buildJs": "webpack",
-    "build": "NODE_ENV=production yarn buildCss && yarn buildJs && bin/build_dist.sh",
-    "buildDev": "yarn buildCss && yarn buildJs",
-    "liveServer": "live-server ."
+    "buildJs": "webpack --config webpack.dev.js",
+    "buildDev": "yarn buildCss && yarn buildJs && bin/build_dist.sh",
+    "build": "NODE_ENV=production yarn buildCss && webpack --config webpack.prod.js && bin/build_dist.sh",
+    "liveServer": "live-server ./dist"
   },
   "repository": {
     "type": "git",
@@ -29,21 +29,23 @@
   },
   "homepage": "https://github.com/johnschoeman/mirror-prime-tree#readme",
   "dependencies": {
-    "autoprefixer": "^9.7.2",
-    "postcss-cli": "^6.1.3",
+    "autoprefixer": "10.1.0",
+    "postcss-cli": "^8.3.1",
     "rxjs": "^6.5.3",
     "source-map-support": "^0.5.13",
-    "tailwindcss": "^1.2.0",
+    "tailwindcss": "^2.0.2",
     "webpack": "^5.11.1"
   },
   "devDependencies": {
-    "@types/node": "^12.7.5",
+    "@types/node": "^14.14.19",
+    "clean-webpack-plugin": "^3.0.0",
     "html-webpack-plugin": "^4.5.0",
-    "prettier": "^1.18.2",
+    "prettier": "^2.2.1",
     "source-map-loader": "^0.2.4",
-    "ts-loader": "^6.1.0",
-    "typescript": "^3.6.3",
+    "ts-loader": "^8.0.13",
+    "typescript": "^4.1.3",
     "webpack-cli": "^4.3.1",
+    "webpack-dev-server": "^3.11.1",
     "webpack-merge": "^5.7.3"
   }
 }

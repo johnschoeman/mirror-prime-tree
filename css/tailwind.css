@@ -8,7 +8,7 @@
   @apply bg-indigo-400;
 }
 .btn:focus {
-  @apply outline-none shadow-outline;
+  @apply outline-none;
 }
 .btn:active {
   @apply bg-indigo-600;
@@ -24,7 +24,7 @@
   @apply text-blue-800;
 }
 .lnk:focus {
-  @apply outline-none shadow-outline;
+  @apply outline-none;
 }
 
 .lnk-black {
@@ -39,9 +39,6 @@
 }
 .tile:hover {
   @apply cursor-pointer;
-}
-.tile:focus {
-  @apply shadow-outline;
 }
 
 .my-vmin {
