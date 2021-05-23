@@ -2,5 +2,5 @@
 
 A playground for canvas ideas.
 
-[Live Site](https://johndevelops.net)
+[Live Site](https://boring-hypatia-5625e0.netlify.app/)
 
