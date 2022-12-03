@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <title>Recaman</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../index.css">
+  </head>
+
+  <body>
+    <div class="w-full px-12 py-8">
+      <div class="flex items-baseline">
+        <h1 class="text-gray-800 text-4xl">Recaman</h1>
+        <button class="lnk ml-12" id="back-button">back</button>
+      </div>
+
+      <div id="inputs" class="lg:w-1/4">
+        <input
+          id="count-input"
+          type="range"
+          value="100"
+          min="1"
+          max="1000"
+          step="1"
+          />
+        <input
+          id="scale-input"
+          type="range"
+          value="5"
+          min="1"
+          max="20"
+          step="1"
+          />
+        <div class="flex h-0 items-center">
+          <input
+            id="root-input"
+            type="range"
+            value="17"
+            min="0"
+            max="200"
+            step="1"
+            />
+          <h2 id="root-display" class="ml-4 text-gray-800 text-2xl">17</h2>
+        </div>
+      </div>
+
+      <section id="canvas-div" class="mt-4">
+        <canvas id="canvas" class="w-full h-full"></canvas>
+      </section>
+    </div>
+  </body>
+  <script type="application/javascript" src="./index.js"></script>
+</html>

@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>SolarSystem2</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../index.css">
+  </head>
+
+  <body>
+    <div class="w-full px-12 py-8">
+      <div class="flex items-baseline">
+        <h1 class="text-gray-800 text-4xl">SolarSystem2</h1>
+        <button class="lnk ml-12" id="back-button">back</button>
+      </div>
+
+      <div id="inputs" class="flex items-center lg:w-1/4">
+        <input id="dilation-input" type="range" value="50" min="0" max="100" />
+        <button id="randomize-button" class="randomize_button ml-4"></button>
+      </div>
+
+      <div id="canvas-div">
+        <canvas id="canvas" class="w-full h-full"></canvas>
+      </div>
+    </div>
+  </body>
+  <script type="application/javascript" src="./index.js"></script>
+</html>

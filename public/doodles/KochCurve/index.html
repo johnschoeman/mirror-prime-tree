@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>KochCurve</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../tailwind.css">
+    <link rel="stylesheet" href="../../index.css">
+  </head>
+
+  <body>
+    <div class="w-full px-12 py-8">
+      <div class="flex items-baseline">
+        <h1 class="text-gray-800 text-4xl">KochCurve</h1>
+        <button class="lnk ml-12" id="back-button">back</button>
+      </div>
+
+      <div class="">
+        <div id="inputs" class="lg:w-1/4">
+          <input
+            type="range"
+            id="iteration-input"
+            value="1"
+            min="1"
+            max="7"
+            step="1"
+            />
+        </div>
+
+        <div id="canvas-div" class="">
+          <canvas id="canvas" class="w-full h-full"></canvas>
+        </div>
+
+      </div>
+    </div>
+  </body>
+  <script type="application/javascript" src="./index.js"></script>
+</html>

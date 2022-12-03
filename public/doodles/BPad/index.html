@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <title>BPad</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../index.css">
+  </head>
+
+  <body>
+    <div class="w-full px-12 py-8">
+      <div class="flex items-baseline justify-between lg:w-1/4">
+        <h1 class="text-gray-800 text-4xl">BPad</h1>
+        <div class="">
+         <button class="lnk ml-12" id="back-button">back</button>
+          <span>music by: 
+            <a class="lnk ml-12" href="https://bpad.bandcamp.com/releases">BPad</a>
+          </span>
+        </div>
+      </div>
+
+      <div id="boombox">
+        <div class="boombox-body">
+          <div id="inputs" class="mt-4 lg:w-1/4">
+
+            <button id="play-button" class="bg-green-800 h-16 w-16">
+            </button>
+
+            <button id="stop-button" class="bg-red-800 h-16 w-16">
+            </button>
+
+            <input
+              id="color-count"
+              class="w-24"
+              type="range"
+              value="3"
+              min="1"
+              max="10"
+              step="1"
+              />
+
+            <input
+              id="dilation"
+              class="w-24"
+              type="range"
+              value="1"
+              min="1"
+              max="10"
+              step="1"
+              />
+
+            <input
+              id="circle-size"
+              class="w-24"
+              type="range"
+              value="10"
+              min="1"
+              max="50"
+              step="1"
+              />
+          </div>
+        </div>
+
+        <div id="canvas-div" class="w-full h-full">
+          <canvas id="canvas" class="w-full h-full"></canvas>
+        </div>
+  </body>
+  <audio src="./assets/bpad_decisions_decisions.mp3" crossorigin="anonymous" ></audio>
+  <script type="application/javascript" src="./index.js"></script>
+</html>
