@@ -4,16 +4,15 @@ const minify = false
 const sourcemap = true
 
 const doodleFolders = [
-  "asteroids",
+  // "asteroids",
   "b_pad",
   "koch_curve",
-  "mandlebrot",
+  // "mandlebrot",
   "mirror_primes",
-  "recaman",
   "solar_system",
   "solar_system_2",
   "tic_tac_toe",
-  "tree"
+  // "tree"
 ]
 
 
