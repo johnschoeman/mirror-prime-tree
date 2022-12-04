@@ -4,15 +4,17 @@ const minify = false
 const sourcemap = true
 
 const doodleFolders = [
-  "asteroids",
   "b_pad",
   "koch_curve",
-  "mandlebrot",
   "mirror_primes",
-  "recaman",
   "solar_system",
   "solar_system_2",
   "tic_tac_toe",
+]
+
+const foo = [
+  "asteroids",
+  "mandlebrot",
   "tree"
 ]
 
@@ -23,7 +25,13 @@ const entryPoints = doodleFolders.map((folder) => {
 const outdir = "./build/doodles"
 
 esbuild.build({
-  entryPoints, 
+  entryPoints: [
+    ...entryPoints,
+    "./src/doodles/foobar/index.ts",
+    "./src/doodles/asteroids/index.ts"
+    "./src/doodles/asteroids"
+    "src/doodles/asteroids/index.ts"
+  ], 
   bundle: true,
   outdir,
   sourcemap,
