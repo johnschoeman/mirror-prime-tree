@@ -8,7 +8,7 @@
   },
   "scripts": {
     "prettier": "prettier \"src/**/*.+(js|jsx|ts|tsx|json)\"",
-    "format": "yarn prettier --write",
+    "format": "prettier --write",
     "build": "bin/build.sh",
     "start": "node bin/watch.js",
     "serve": "bin/serve.sh"

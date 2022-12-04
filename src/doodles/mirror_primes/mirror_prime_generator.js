@@ -48,7 +48,7 @@ export const generateTree = function generateTree(options) {
 
 // This will mutate the given tree.
 // oldTree = {nodeHash, nodesWithChildren, nodesWithoutChildrenQueue, nodeCount}
-export const addOneIterationToTree = function(oldTree, options) {
+export const addOneIterationToTree = function (oldTree, options) {
   nodeHash = oldTree.nodeHash
   nodesWithChildren = oldTree.nodesWithChildren
   nodesWithoutChildrenQueue = oldTree.nodesWithoutChildrenQueue
@@ -93,22 +93,23 @@ export const MirrorTreeNode = class MirrorTreeNode {
     let nextChild = undefined
     let nextMirrorNum = undefined
 
-    let primes = undefined
-    if (showPrimes && showComposites) {
-      primes = "true"
-    } else if (showPrimes && !showComposites) {
-      primes = "nextMirrorNum.isPrime"
-    } else if (!showPrimes && showComposites) {
-      primes = "!nextMirrorNum.isPrime"
-    } else {
-      primes = "false"
+    const primes = (nextMirrorNum) => {
+      if (showPrimes && showComposites) {
+        return true
+      } else if (showPrimes && !showComposites) {
+        return nextMirrorNum.isPrime
+      } else if (!showPrimes && showComposites) {
+        return !nextMirrorNum.isPrime
+      } else {
+        return false
+      }
     }
 
     for (let i = 2; i < this.mirrorNum.decValue; i++) {
       nextMirrorNum = this.mirrorNum.toBase(i).reverse()
       if (nextMirrorNum.decValue > this.mirrorNum.decValue) {
         if (
-          eval(primes) &&
+          primes(nextMirrorNum) &&
           this.childCount < maxChildNodes &&
           !nodeHash[nextMirrorNum.decValue]
         ) {

@@ -1,4 +1,4 @@
-set -e
+#!/bin/bash
 
 # Setup
 rm -rf build
@@ -7,4 +7,6 @@ cp -r public/* build
 
 # Build
 npx tailwindcss -i ./src/tailwind.css -o ./build/index.css
-node bin/esbuild.js --sourcemap
+node bin/esbuild.js
+
+
