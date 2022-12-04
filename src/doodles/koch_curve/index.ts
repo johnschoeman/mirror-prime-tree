@@ -1,7 +1,5 @@
 import { HtmlHelpers } from "../../utils"
 
-HtmlHelpers.setupDoodle()
-
 const kochSequence = (iteration: number) => {
   if (iteration <= 1) {
     return "1101"

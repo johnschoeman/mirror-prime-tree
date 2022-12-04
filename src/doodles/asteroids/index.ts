@@ -1,8 +1,6 @@
 import { Shape, Asteroid } from "./Shapes"
 import { HtmlHelpers } from "../../utils"
 
-HtmlHelpers.setupDoodle()
-
 const runGame = (asteroidCount: number) => {
   const canvas: HTMLCanvasElement = <HTMLCanvasElement>(
     document.getElementById("cnvs")

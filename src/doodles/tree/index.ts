@@ -1,7 +1,5 @@
 import { HtmlHelpers } from "../../utils"
 
-HtmlHelpers.setupDoodle()
-
 const drawTree = (
   ctx: CanvasRenderingContext2D,
   startX: number,

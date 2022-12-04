@@ -1,8 +1,6 @@
 import { ArrayHelpers, HtmlHelpers } from "../../utils"
 import { Seq } from "./sequence"
 
-HtmlHelpers.setupDoodle()
-
 let animationId: number
 
 type Orienation = true | false

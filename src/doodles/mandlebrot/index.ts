@@ -1,7 +1,5 @@
 import { HtmlHelpers } from "../../utils"
 
-HtmlHelpers.setupDoodle()
-
 const createMandlebrot = function createMandlebrot() {
   let myCanvas = document.createElement("canvas")
   myCanvas.width = 600

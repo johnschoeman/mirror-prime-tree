@@ -1,7 +1,5 @@
 import { HtmlHelpers } from "../../utils"
 
-HtmlHelpers.setupDoodle()
-
 let sun = new Image()
 let moon = new Image()
 let earth = new Image()

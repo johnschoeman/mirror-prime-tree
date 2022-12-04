@@ -1,8 +1,6 @@
 import { generatePlanets, Planet } from "./planets"
 import { HtmlHelpers } from "../../utils"
 
-HtmlHelpers.setupDoodle()
-
 let animationId: number
 let dilation: number
 

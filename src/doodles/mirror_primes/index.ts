@@ -3,8 +3,6 @@ import { drawMirrorTree } from "./mirror_tree"
 import { initTreeAnimation } from "./animate_tree"
 import { HtmlHelpers } from "../../utils"
 
-HtmlHelpers.setupDoodle()
-
 interface TreeOptions {
   seed: number
   iterations: number

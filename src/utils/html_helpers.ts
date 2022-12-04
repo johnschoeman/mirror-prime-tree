@@ -17,9 +17,3 @@ export const setupCanvas = (id: string) => {
   const ctx = canvas.getContext("2d")
   return { canvas, ctx }
 }
-
-export const setupDoodle = () => {
-  document.getElementById("back-button").addEventListener("click", () => {
-    history.back()
-  })
-}

@@ -1,7 +1,5 @@
 import { HtmlHelpers } from "../../utils"
 
-HtmlHelpers.setupDoodle()
-
 let animationId: number
 let colorCount: number = 3
 let colors: string[] = generateColors(3)

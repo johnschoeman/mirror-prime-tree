@@ -3,8 +3,6 @@ import { map, flatMap, take, first } from "rxjs/operators"
 
 import { HtmlHelpers } from "../../utils"
 
-HtmlHelpers.setupDoodle()
-
 function initTicTacToe() {
   type Cell = "X" | "O" | null
 
