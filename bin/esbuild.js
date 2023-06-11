@@ -27,8 +27,8 @@ esbuild.build({
   outdir,
   sourcemap,
   minify,
-  plugins: [
-  ],
+  target: "es6",
+  plugins: [],
 }).catch(() => process.exit(1))
 
 
