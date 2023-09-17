@@ -10,6 +10,7 @@
     "prettier": "prettier \"src/**/*.+(js|jsx|ts|tsx|json)\"",
     "format": "prettier --write",
     "build": "bin/build.sh",
+    "build:css": "npx tailwindcss .src/tailwind.css -o public/index.css",
     "start": "node bin/watch.js",
     "serve": "bin/serve.sh",
     "test": "bun test",
