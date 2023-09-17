@@ -1,3 +1,5 @@
+import { IO } from "../fpts"
+
 export type ArcPair = {
   lft: number
   rgt: number
@@ -16,3 +18,14 @@ export const makePairs = (array: Array<number>) => {
   }
   return result
 }
+
+export const shuffle =
+  <T>(array: T[]): IO.IO<T[]> =>
+  () => {
+    const source = [...array]
+    for (let i = source.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[source[i], source[j]] = [source[j], source[i]]
+    }
+    return source
+  }
