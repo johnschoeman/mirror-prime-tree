@@ -8,14 +8,19 @@ const initSolarSystem2 = () => {
   const { canvas, ctx } = HtmlHelpers.setupCanvas("canvas")
   // const initalTime = NumberHelpers.randomInteger(2000000)
   const initialTime = 0
+
+  if (!ctx) {
+    return
+  }
+
   setupAnimation(ctx, canvas, initialTime)
 
-  document.getElementById("inputs").addEventListener("change", () => {
+  document.getElementById("inputs")?.addEventListener("change", () => {
     const base = HtmlHelpers.getValue("dilation-input")
     dilation = convertDilation(base)
   })
 
-  document.getElementById("randomize-button").addEventListener("click", () => {
+  document.getElementById("randomize-button")?.addEventListener("click", () => {
     setupAnimation(ctx, canvas, initialTime)
   })
 }

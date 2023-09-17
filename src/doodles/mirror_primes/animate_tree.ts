@@ -29,16 +29,16 @@ import { drawMirrorTree } from "./mirror_tree"
 //   maxIteration: iterations
 // };
 
-let animationId
+let animationId: number
 let currentTree
-let t = undefined
+let t: any = undefined
 
 export const initTreeAnimation = function initTreeAnimation(
-  ctx,
-  drawOptions,
-  treeOptions,
-  animateOptions,
-  canvas
+  ctx: any,
+  drawOptions: any,
+  treeOptions: any,
+  animateOptions: any,
+  canvas: any
 ) {
   animationId = window.requestAnimationFrame(
     animateMirrorTree(ctx, drawOptions, treeOptions, animateOptions, canvas)
@@ -46,7 +46,7 @@ export const initTreeAnimation = function initTreeAnimation(
 
   let stopButton = document.getElementById("stop-animation")
 
-  stopButton.addEventListener("click", () => {
+  stopButton?.addEventListener("click", () => {
     console.log("clicked stop")
     window.cancelAnimationFrame(animationId)
     t = undefined
@@ -71,11 +71,11 @@ export const initTreeAnimation = function initTreeAnimation(
 // }
 
 function animateMirrorTree(
-  ctx,
-  drawOptions,
-  treeOptions,
-  animateOptions,
-  canvas
+  ctx: any,
+  drawOptions: any,
+  treeOptions: any,
+  animateOptions: any,
+  canvas: any
 ) {
   // console.log('in animation step');
   // console.log('current iteration: ', animateOptions.currentIteration);
@@ -95,7 +95,7 @@ function animateMirrorTree(
     drawMirrorTree(ctx, drawOptions)
     animationId = window.requestAnimationFrame(
       animateMirrorTree(ctx, drawOptions, treeOptions, animateOptions, canvas),
-      1000 / 60
+      // 1000 / 60
     )
   }
 }

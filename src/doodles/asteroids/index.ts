@@ -5,7 +5,11 @@ const runGame = (asteroidCount: number) => {
   const canvas: HTMLCanvasElement = <HTMLCanvasElement>(
     document.getElementById("cnvs")
   )
-  const ctx: CanvasRenderingContext2D = canvas.getContext("2d")
+  const ctx: CanvasRenderingContext2D | null = canvas.getContext("2d")
+
+  if (!ctx) {
+    return
+  }
 
   const shapes: Array<Shape> = new Array<Shape>()
 
@@ -16,7 +20,9 @@ const runGame = (asteroidCount: number) => {
 
   function gameLoop() {
     requestAnimationFrame(gameLoop)
+    // @ts-ignore
     ctx.fillStyle = "black"
+    // @ts-ignore
     ctx.fillRect(0, 0, 1280, 720)
 
     shapes.forEach(shape => {
@@ -31,7 +37,7 @@ const asteroidCount = HtmlHelpers.getValue("asteroid-count-input")
 
 runGame(asteroidCount)
 
-document.getElementById("inputs").addEventListener("change", () => {
+document.getElementById("inputs")?.addEventListener("change", () => {
   const asteroidCount = HtmlHelpers.getValue("asteroid-count-input")
   runGame(asteroidCount)
 })

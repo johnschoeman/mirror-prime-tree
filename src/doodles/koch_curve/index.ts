@@ -1,6 +1,6 @@
 import { HtmlHelpers } from "../../utils"
 
-const kochSequence = (iteration: number) => {
+const kochSequence = (iteration: number): string => {
   if (iteration <= 1) {
     return "1101"
   }
@@ -47,8 +47,12 @@ const drawKochCurve = (
 const initKochCurve = () => {
   const { canvas, ctx } = HtmlHelpers.setupCanvas("canvas")
 
+  if (!ctx) {
+    return
+  }
+
   drawKochCurve(canvas, ctx, 1)
-  document.getElementById("inputs").addEventListener("change", () => {
+  document.getElementById("inputs")?.addEventListener("change", () => {
     const iteration = HtmlHelpers.getValue("iteration-input")
     drawKochCurve(canvas, ctx, iteration)
   })

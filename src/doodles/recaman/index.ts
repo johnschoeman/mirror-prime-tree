@@ -1,5 +1,4 @@
 import { ArrayHelpers, HtmlHelpers } from "../../utils"
-import { Seq } from "./sequence"
 
 let animationId: number
 
@@ -17,7 +16,8 @@ const drawRecaman = (
   ctx.fillRect(0, 0, startX * 2, startY * 2)
 
   const recamanSequence: Array<number> = JSON.parse(
-    Seq.generateRecaman(0, root, count)
+    "[]"
+    // Seq.generateRecaman(0, root, count)
   )
   let orienation = true
 
@@ -87,20 +87,20 @@ const drawHalfCirle = (
   ctx.restore()
 }
 
-interface Coordinate {
-  x: number
-  y: number
-}
 
 const initRecaman = () => {
   const { canvas, ctx } = HtmlHelpers.setupCanvas("canvas")
 
   const startY = canvas.height / 2
 
+  if (!ctx) {
+    return
+  }
+
   drawRecaman(ctx, 0, startY, 17, 100, 5)
   // initRecamanAnimation(ctx, canvas, startY, 17, 5)
 
-  document.getElementById("inputs").addEventListener("change", () => {
+  document.getElementById("inputs")?.addEventListener("change", () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     const count = HtmlHelpers.getValue("count-input")
     const root = HtmlHelpers.getValue("root-input")

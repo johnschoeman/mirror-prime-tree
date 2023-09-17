@@ -52,9 +52,9 @@ const drawTriangle = () => {
 }
 
 const initTriangleSubdivision = () => {
-  document.getElementById("inputs").addEventListener("change", drawTriangle)
-  document.getElementById("reset-btn").addEventListener("click", drawTriangle)
-  document.getElementById("container").addEventListener("click", drawTriangle)
+  document.getElementById("inputs")?.addEventListener("change", drawTriangle)
+  document.getElementById("reset-btn")?.addEventListener("click", drawTriangle)
+  document.getElementById("container")?.addEventListener("click", drawTriangle)
   drawTriangle()
 }
 

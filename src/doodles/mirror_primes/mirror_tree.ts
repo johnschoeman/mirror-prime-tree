@@ -1,5 +1,5 @@
 export const drawMirrorTree = function drawMirrorTree(
-  ctx,
+  ctx: any,
   {
     startX = 0,
     startY = 0,
@@ -13,7 +13,7 @@ export const drawMirrorTree = function drawMirrorTree(
     terminalLengthMultiplier = 0.5,
     terminalAngleRange = null,
     currentNode = {},
-  } = {}
+  }: any = {}
 ) {
   ctx.beginPath()
   ctx.save()
@@ -41,7 +41,7 @@ export const drawMirrorTree = function drawMirrorTree(
     ctx.restore()
     return
   }
-  Object.values(childNodes).forEach((node, idx) => {
+  Object.values(childNodes).forEach((node: any, idx) => {
     let nextLength = lengthMultiple * length
     let nextAngleRange = (angleSpread * angleRange) / numChildren
 

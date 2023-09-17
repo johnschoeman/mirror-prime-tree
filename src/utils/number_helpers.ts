@@ -1,4 +1,8 @@
-export const convertBase = function convertBase(digits, fromBase, toBase) {
+export const convertBase = function convertBase(
+  digits: number[],
+  fromBase: number,
+  toBase: number
+) {
   let decValue = digits.reduce((sum, value, idx) => {
     return sum + value * Math.pow(fromBase, idx)
   })
@@ -13,7 +17,7 @@ export const convertBase = function convertBase(digits, fromBase, toBase) {
   return resDigits
 }
 
-export const isPrime = function isPrime(num) {
+export const isPrime = function isPrime(num: number) {
   if (num <= 1) {
     return false
   }
@@ -32,7 +36,7 @@ export const isPrime = function isPrime(num) {
   return true
 }
 
-export const toDigits = function toDigits(num) {
+export const toDigits = function toDigits(num: number) {
   let digits = []
   while (num > 0) {
     digits.push(num % 10)
@@ -44,7 +48,7 @@ export const toDigits = function toDigits(num) {
 let objIdMap = new WeakMap()
 let objectCount = 0
 
-export const objectId = function objectId(object) {
+export const objectId = function objectId(object: Record<string, any>) {
   if (!objIdMap.has(object)) {
     objIdMap.set(object, ++objectCount)
   }

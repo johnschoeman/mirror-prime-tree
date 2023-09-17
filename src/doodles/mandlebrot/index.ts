@@ -36,7 +36,7 @@ const checkIfBelongsToMandlebrotSet = function checkIfBelongsToMandlebrotSet(
   return 0
 }
 
-const drawMandlebrot = function drawMandlebrot(myCanvas, ctx) {
+const drawMandlebrot = function drawMandlebrot(myCanvas: any, ctx: any) {
   let magnificationFactor = 200
   let panX = 2
   let panY = 1

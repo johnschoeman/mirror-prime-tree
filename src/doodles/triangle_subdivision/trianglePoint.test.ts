@@ -7,7 +7,7 @@ describe("TrianglePoint", () => {
 
       const result = TrianglePoint.build(r)
 
-      const expected = []
+      const expected: TrianglePoint.TrianglePoint[] = []
 
       expect(result).toEqual(expected)
     })

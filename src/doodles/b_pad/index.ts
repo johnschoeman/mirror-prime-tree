@@ -12,35 +12,37 @@ const initBPad = () => {
 
   const { audioCtx, audioElement } = setupAudio()
 
+  if (!ctx || !audioElement) {
+    return
+  }
+
   const playButton = document.getElementById("play-button")
   const stopButton = document.getElementById("stop-button")
 
-  document.getElementById("color-count").addEventListener("change", () => {
+  document.getElementById("color-count")?.addEventListener("change", () => {
     colorCount = HtmlHelpers.getValue("color-count")
     colors = generateColors(colorCount)
   })
 
-  document.getElementById("dilation").addEventListener("change", () => {
+  document.getElementById("dilation")?.addEventListener("change", () => {
     dilationCRatio = HtmlHelpers.getValue("dilation")
   })
 
-  document.getElementById("circle-size").addEventListener("change", () => {
+  document.getElementById("circle-size")?.addEventListener("change", () => {
     circleSize = HtmlHelpers.getValue("circle-size")
   })
 
-  playButton.addEventListener("click", () => {
+  playButton?.addEventListener("click", () => {
     startAudio(audioCtx, audioElement)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     animationId = window.requestAnimationFrame(animateCircles(ctx))
   })
 
-  stopButton.addEventListener("click", () => {
+  stopButton?.addEventListener("click", () => {
     stopAudio(audioElement)
     window.cancelAnimationFrame(animationId)
   })
 }
-
-const resetCompressor = () => {}
 
 function generateColors(colorCount: number = 3) {
   const colors = []
@@ -54,7 +56,11 @@ const setupAudio = () => {
   const AudioContext = window.AudioContext
   const audioCtx = new AudioContext()
 
+
   const audioElement = document.querySelector("audio")
+  if (!audioElement) {
+    return { audioCtx, audioElement: undefined}
+  }
   const track = audioCtx.createMediaElementSource(audioElement)
   const compressor = audioCtx.createDynamicsCompressor()
   compressor.threshold.value = -50
@@ -63,15 +69,15 @@ const setupAudio = () => {
   compressor.attack.value = 0
   compressor.release.value = 0.25
 
-  audioElement.addEventListener("ended", () => {
-    audioElement.play()
+  audioElement?.addEventListener("ended", () => {
+    audioElement?.play()
   })
 
   track.connect(compressor).connect(audioCtx.destination)
   return { audioCtx, audioElement }
 }
 
-const startAudio = (audioCtx, audioElement: HTMLAudioElement) => {
+const startAudio = (audioCtx: any, audioElement: HTMLAudioElement) => {
   // check if context is in suspended state (autoplay policy)
   if (audioCtx.state === "suspended") {
     audioCtx.resume()

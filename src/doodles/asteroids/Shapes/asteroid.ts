@@ -53,9 +53,9 @@ class Asteroid implements Shape {
 
   constructor(
     ctx: CanvasRenderingContext2D,
-    x: number = undefined,
-    y: number = undefined,
-    size: number = undefined,
+    x: number = 0,
+    y: number = 0,
+    size: number = 0,
     color: string = "white",
     line_width: number = 2
   ) {

@@ -39,16 +39,16 @@ const initMirrorTree = () => {
 
   createTree(ctx, canvas)
 
-  document.getElementById("inputs").addEventListener("change", () => {
+  document.getElementById("inputs")?.addEventListener("change", () => {
     createTree(ctx, canvas)
   })
 
   initAnimationNav(ctx, canvas)
 }
 
-function initAnimationNav(ctx, canvasEl) {
+function initAnimationNav(ctx: any, canvasEl: any) {
   let startButton = document.getElementById("start-animation")
-  startButton.addEventListener("click", () => {
+  startButton?.addEventListener("click", () => {
     let { drawOptions, treeOptions, animateOptions } = getUserInput()
     ctx.clearRect(0, 0, canvasEl.width, canvasEl.height)
 
@@ -58,7 +58,7 @@ function initAnimationNav(ctx, canvasEl) {
   })
 }
 
-function createTree(ctx, canvasEl) {
+function createTree(ctx: any, canvasEl: any) {
   let { drawOptions } = getUserInput()
   drawOptions.startX = canvasEl.width / 2
   drawOptions.startY = canvasEl.height / 2
@@ -105,6 +105,7 @@ function getUserInput() {
     lengthMultiple,
     terminalLengthMultiplier,
     terminalAngleRange,
+    // @ts-ignore
     currentNode: t.nodeHash[treeOptions.seed],
   }
 

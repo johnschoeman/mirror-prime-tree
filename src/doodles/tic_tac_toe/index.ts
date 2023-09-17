@@ -1,8 +1,6 @@
 import { BehaviorSubject, fromEvent, interval, merge } from "rxjs"
 import { map, flatMap, take, first } from "rxjs/operators"
 
-import { HtmlHelpers } from "../../utils"
-
 function initTicTacToe() {
   type Cell = "X" | "O" | null
 
@@ -38,22 +36,36 @@ function initTicTacToe() {
 
   const winnerBox = document.getElementById("winner-box")
 
-  const cellA = fromEvent(cell00, "click").pipe(map(e => [0, 0]))
-  const cellB = fromEvent(cell01, "click").pipe(map(e => [0, 1]))
-  const cellC = fromEvent(cell02, "click").pipe(map(e => [0, 2]))
-  const cellD = fromEvent(cell10, "click").pipe(map(e => [1, 0]))
-  const cellE = fromEvent(cell11, "click").pipe(map(e => [1, 1]))
-  const cellF = fromEvent(cell12, "click").pipe(map(e => [1, 2]))
-  const cellG = fromEvent(cell20, "click").pipe(map(e => [2, 0]))
-  const cellH = fromEvent(cell21, "click").pipe(map(e => [2, 1]))
-  const cellI = fromEvent(cell22, "click").pipe(map(e => [2, 2]))
+  if (
+    !cell00 ||
+    !cell01 ||
+    !cell02 ||
+    !cell10 ||
+    !cell11 ||
+    !cell12 ||
+    !cell20 ||
+    !cell21 ||
+    !cell22
+  ) {
+    return
+  }
+
+  const cellA = fromEvent(cell00, "click").pipe(map(() => [0, 0]))
+  const cellB = fromEvent(cell01, "click").pipe(map(() => [0, 1]))
+  const cellC = fromEvent(cell02, "click").pipe(map(() => [0, 2]))
+  const cellD = fromEvent(cell10, "click").pipe(map(() => [1, 0]))
+  const cellE = fromEvent(cell11, "click").pipe(map(() => [1, 1]))
+  const cellF = fromEvent(cell12, "click").pipe(map(() => [1, 2]))
+  const cellG = fromEvent(cell20, "click").pipe(map(() => [2, 0]))
+  const cellH = fromEvent(cell21, "click").pipe(map(() => [2, 1]))
+  const cellI = fromEvent(cell22, "click").pipe(map(() => [2, 2]))
 
   merge(cellA, cellB, cellC, cellD, cellE, cellF, cellG, cellH, cellI)
     .pipe(
       flatMap(([rowIdx, colIdx]) => {
         return gameSubject.pipe(
           take(1),
-          map(game => {
+          map((game) => {
             const nextGame = cloneGame(game)
             nextGame[rowIdx][colIdx] = "X"
             return nextGame
@@ -61,7 +73,7 @@ function initTicTacToe() {
         )
       })
     )
-    .subscribe(game => {
+    .subscribe((game) => {
       gameSubject.next(game)
     })
 
@@ -72,7 +84,7 @@ function initTicTacToe() {
         const rowIdx = Math.floor(Math.random() * 3)
         return gameSubject.pipe(
           take(1),
-          map(game => {
+          map((game) => {
             const nextGame = cloneGame(game)
             nextGame[rowIdx][colIdx] = "O"
             return nextGame
@@ -80,14 +92,17 @@ function initTicTacToe() {
         )
       })
     )
-    .subscribe(game => {
+    .subscribe((game) => {
       gameSubject.next(game)
     })
 
-  gameSubject.subscribe(game => {
+  gameSubject.subscribe((game) => {
     game.forEach((row, rowIdx) => {
       row.forEach((col, colIdx) => {
         const cell = document.getElementById(`${rowIdx}${colIdx}`)
+        if (!cell) {
+          return
+        }
         if (col === "X") {
           cell.innerHTML = "X"
         } else if (col === "O") {
@@ -101,7 +116,7 @@ function initTicTacToe() {
     const lineComplete = (line: [Cell, Cell, Cell]): Cell => {
       const firstValue = line[0]
       if (firstValue !== null) {
-        return line.filter(value => value === firstValue).length === 3
+        return line.filter((value) => value === firstValue).length === 3
           ? firstValue
           : null
       } else {
@@ -109,7 +124,7 @@ function initTicTacToe() {
       }
     }
 
-    const lines = [
+    const lines: [Cell, Cell, Cell][] = [
       [game[0][0], game[0][1], game[0][2]],
       [game[1][0], game[1][1], game[1][2]],
       [game[2][0], game[2][1], game[2][2]],
@@ -124,8 +139,8 @@ function initTicTacToe() {
       lineComplete(line)
     )
 
-    const countXLines = lineWinners.filter(value => value === "X").length
-    const countOLines = lineWinners.filter(value => value === "O").length
+    const countXLines = lineWinners.filter((value) => value === "X").length
+    const countOLines = lineWinners.filter((value) => value === "O").length
 
     if (countXLines > countOLines) {
       return "X"
@@ -136,9 +151,11 @@ function initTicTacToe() {
     }
   }
 
-  gameSubject.pipe(map(game => winner(game))).subscribe(winner => {
+  gameSubject.pipe(map((game) => winner(game))).subscribe((winner) => {
     const message = `WINNER: ${winner === null ? "?" : winner}`
-    winnerBox.innerHTML = message
+    if (winnerBox) {
+      winnerBox.innerHTML = message
+    }
   })
 }
 

@@ -25,7 +25,7 @@ export const build = (
 ): TriangleLine[] => {
   return F.pipe(
     points,
-    A.reduce([], (acc, pointA) => {
+    A.reduce<TrianglePoint.TrianglePoint, TriangleLine[]>([], (acc, pointA) => {
       return F.pipe(
         points,
         A.filter(TrianglePoint.isAdjacent(pointA)),

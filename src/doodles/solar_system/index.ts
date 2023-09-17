@@ -4,14 +4,14 @@ let sun = new Image()
 let moon = new Image()
 let earth = new Image()
 
-const init = function init(ctx) {
+const init = function init(ctx: any) {
   sun.src = "https://mdn.mozillademos.org/files/1456/Canvas_sun.png"
   moon.src = "https://mdn.mozillademos.org/files/1443/Canvas_moon.png"
   earth.src = "https://mdn.mozillademos.org/files/1429/Canvas_earth.png"
   window.requestAnimationFrame(draw(ctx))
 }
 
-function draw(ctx) {
+function draw(ctx: any) {
   return () => {
     ctx.globalCompositeOperation = "destination-over"
     ctx.clearRect(0, 0, 300, 300)
