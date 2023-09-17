@@ -4,6 +4,7 @@ const minify = false
 const sourcemap = true
 
 const doodleFolders = [
+  "triangle_subdivision",
   "b_pad",
   "koch_curve",
   "mirror_primes",
