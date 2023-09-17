@@ -1,17 +1,7 @@
 node_modules/
+dist/
 build/
 main.js
-
-# scala stuff
-project/project/
-project/target/
-target/streams/
-target/scala-2.12/resolution-cache
-target/scala-2.12/classes
-.metals/
-
-# elm stuff
-elm-stuff/
 
 # os stuff
 .DS_Store
