@@ -9,7 +9,8 @@ import * as Triangle from "./triangle"
 
 const target = document.querySelector("#container") as HTMLElement
 
-const lineStroke = { width: 1, color: "#000", linecap: "round" }
+const colorDark = "#212121"
+const colorLight = "#fafafa"
 const clientWidth = target.clientWidth
 const clientHeight = target.clientHeight
 
@@ -42,10 +43,17 @@ const drawTriangle = () => {
       )
     }),
     shuffle,
-    IO.map(A.takeLeft(q)),
     IO.map(
-      A.map(([[x1, y1], [x2, y2], [x3, y3]]) => {
-        draw.polygon(`${x1},${y1} ${x2},${y2} ${x3},${y3}`).stroke(lineStroke)
+      A.mapWithIndex((idx, [[x1, y1], [x2, y2], [x3, y3]]) => {
+        const color = idx < q ? colorDark : colorLight
+        const lineStyle = {
+          width: 1,
+          color,
+        }
+        draw
+          .polygon(`${x1},${y1} ${x2},${y2} ${x3},${y3}`)
+          .stroke(lineStyle)
+          .fill(color)
       })
     )
   )()
