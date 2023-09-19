@@ -26,7 +26,8 @@ const Eq = EQ.fromEquals<Triangle>((a, b) => {
   )
 })
 
-export const build = (points: TrianglePoint.TrianglePoint[]): Triangle[] => {
+export const build = (r: number): Triangle[] => {
+  const points = F.pipe(r, TrianglePoint.build)
   return F.pipe(
     points,
     A.reduce<TrianglePoint.TrianglePoint, Triangle[]>([], (acc, pointA) => {
