@@ -31,58 +31,28 @@ const addTriangleToSVG =
     const [[x1, y1], [x2, y2], [x3, y3]] = points
     const path: SvgPath = `${x1},${y1} ${x2},${y2} ${x3},${y3}`
     const triangleSvg = IO.of(
-      svg
-        .polygon(path)
-        .stroke({ width: 1, color })
-        .fill(color)
-        // .click(function () {
-        //   const el: SVG.Polygon = this as unknown as SVG.Polygon
-        //   const currentColor = el.attr("fill")
-        //   const nextColor = currentColor === colorDark ? colorLight : colorDark
-        //   el.fill({ color: nextColor })
-        //   el.stroke({ width: 1, color: nextColor })
-        // })
+      svg.polygon(path).stroke({ width: 1, color }).fill(color)
+      // .click(function () {
+      //   const el: SVG.Polygon = this as unknown as SVG.Polygon
+      //   const currentColor = el.attr("fill")
+      //   const nextColor = currentColor === colorDark ? colorLight : colorDark
+      //   el.fill({ color: nextColor })
+      //   el.stroke({ width: 1, color: nextColor })
+      // })
     )
     return triangleSvg
   }
 
 const addTriangleToSVGFoo =
-  (isDark: boolean) =>
   (points: Coord[]) =>
+  (isDark: boolean) =>
   (svg: SVG.Svg): IO.IO<SVG.Polygon> => {
     const color: Color = isDark ? colorDark : colorLight
     const [[x1, y1], [x2, y2], [x3, y3]] = points
     const path: SvgPath = `${x1},${y1} ${x2},${y2} ${x3},${y3}`
-    const triangleSvg = IO.of(
-      svg
-        .polygon(path)
-        .stroke({ width: 1, color })
-        .fill(color)
-        // .click(function () {
-        //   const el: SVG.Polygon = this as unknown as SVG.Polygon
-        //   const currentColor = el.attr("fill")
-        //   const nextColor = currentColor === colorDark ? colorLight : colorDark
-        //   el.fill({ color: nextColor })
-        //   el.stroke({ width: 1, color: nextColor })
-        // })
-    )
+    const triangleSvg = IO.of(SVG.polygon([path, color])(svg))
     return triangleSvg
   }
-
-// const triangle =
-//   (isDark: boolean) =>
-//   (points: Coord[]): SVG.Polygon => {
-//     const color: Color = isDark ? colorDark : colorLight
-//     const [[x1, y1], [x2, y2], [x3, y3]] = points
-//     const path: SvgPath = `${x1},${y1} ${x2},${y2} ${x3},${y3}`
-//     const triangleSvg = SVG.svg([
-//         path(path),
-//         width("1"),
-//         color(color),
-//         fill(color)
-//     ])([])
-//     return triangleSvg
-//   }
 
 const drawTriangles = () => {
   const r = HTMLHelpers.getValue("r-input")
@@ -96,27 +66,56 @@ const drawTriangles = () => {
 
   svg.clear()
 
+  const buildShuffledList =
+    (r: number) =>
+    (numDark: number): IO.IO<boolean[]> => {
+      const arr = new Array(r * r).fill(false)
+      return F.pipe(
+        arr,
+        A.mapWithIndex((idx, _v) => {
+          return idx < numDark
+        }),
+        shuffle
+      )
+    }
+
   // const drawSVGs: IO.IO<readonly SVG.Polygon[]> = F.pipe(
   const drawSVGs = F.pipe(
-    r,
-    Triangle.build,
-    A.map((triangle) => {
-      return F.pipe(
-        triangle,
-        A.map(TrianglePoint.toCartesian),
-        A.map(([x, y]) => [x * wPx, y * hPx] as Coord)
+    [r, q],
+    ([r, q]) => {
+      const tris = IO.of(Triangle.build(r))
+      const darkIndicies = buildShuffledList(r)(q)
+      const result: IO.IO<[Triangle.Triangle, boolean][]> = F.pipe(
+        IO.Do,
+        IO.bind("triangles_", () => tris),
+        IO.bind("darkIndicies_", () => darkIndicies),
+        IO.map(({ triangles_, darkIndicies_ }) => {
+          return A.zip(darkIndicies_)(triangles_)
+        })
       )
-    }),
-    shuffle,
+      return result
+    },
     IO.map(
-      A.mapWithIndex((idx, points: Coord[]) => {
-        const isDark = idx < q
-        // return addTriangleToSVG(isDark)(points)(svg)
-        return addTriangleToSVG(isDark)(points)
+      A.map(
+        ([triangle, isDark]: [TrianglePoint.TrianglePoint[], boolean]): [
+          Coord[],
+          boolean
+        ] => {
+          return F.pipe(
+            triangle,
+            A.map(TrianglePoint.toCartesian),
+            A.map(([x, y]) => [x * wPx, y * hPx] as Coord),
+            (triangle) => [triangle, isDark]
+          )
+        }
+      )
+    ),
+    IO.map(
+      A.map(([points, isDark]: [Coord[], boolean]) => {
+        return addTriangleToSVGFoo(points)(isDark)(svg)
       })
     ),
-    // IO.chain(IO.sequenceArray),
-    // IO.map((foo) => foo(svg))
+    IO.chain(IO.sequenceArray),
   )
 
   drawSVGs()

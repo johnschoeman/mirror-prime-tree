@@ -18,12 +18,13 @@ export const svg =
     return SvgDot.SVG().addTo(target).size(width, height)
   }
 
+type Path = string
+type Color = string
+type Attributes = [Path, Color]
 
-
-export const polygon = (attributes: Attribute[]) => (children: SvgMsg[]) => (svg: Svg): Polygon => {
-      
-      return svg
-        .polygon(path)
-        .stroke({ width: 1, color })
-        .fill(color)
-}
+export const polygon =
+  (attributes: Attributes) =>
+  (svg: Svg): Polygon => {
+    const [path, color] = attributes
+    return svg.polygon(path).stroke({ width: 1, color }).fill(color)
+  }

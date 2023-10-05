@@ -18,9 +18,7 @@ describe("Triangle", () => {
 
     describe("when given the r=2 triangle points", () => {
       it("connects the correct points edgewise", () => {
-        const points = TrianglePoint.build(2)
-
-        const result = Triangle.build(points)
+        const result = Triangle.build(2)
 
         const expected = [
           [
