@@ -20,11 +20,17 @@ export const svg =
 
 type Path = string
 type Color = string
-type Attributes = [Path, Color]
+type Class = string
+type Attributes = [Path, Color, Class]
 
 export const polygon =
   (attributes: Attributes) =>
   (svg: Svg): Polygon => {
-    const [path, color] = attributes
-    return svg.polygon(path).stroke({ width: 1, color }).fill(color)
+    const [path, color, className] = attributes
+    return svg
+      .polygon(path)
+      .stroke({ width: 1, color })
+      .fill(color)
+      .addClass("triangle")
+      .addClass(className)
   }

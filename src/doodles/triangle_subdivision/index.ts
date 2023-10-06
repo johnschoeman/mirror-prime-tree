@@ -1,4 +1,5 @@
-import { F, A, T, IO } from "../../fpts"
+import { F, A, IO } from "../../fpts"
+import * as anime from "animejs"
 import { shuffle } from "../../utils/array_helpers"
 import * as HTMLHelpers from "../../utils/html_helpers"
 
@@ -24,33 +25,14 @@ type Color = string
 type SvgPath = string
 
 const addTriangleToSVG =
-  (isDark: boolean) =>
-  (points: Coord[]) =>
-  (svg: SVG.Svg): IO.IO<SVG.Polygon> => {
-    const color: Color = isDark ? colorDark : colorLight
-    const [[x1, y1], [x2, y2], [x3, y3]] = points
-    const path: SvgPath = `${x1},${y1} ${x2},${y2} ${x3},${y3}`
-    const triangleSvg = IO.of(
-      svg.polygon(path).stroke({ width: 1, color }).fill(color)
-      // .click(function () {
-      //   const el: SVG.Polygon = this as unknown as SVG.Polygon
-      //   const currentColor = el.attr("fill")
-      //   const nextColor = currentColor === colorDark ? colorLight : colorDark
-      //   el.fill({ color: nextColor })
-      //   el.stroke({ width: 1, color: nextColor })
-      // })
-    )
-    return triangleSvg
-  }
-
-const addTriangleToSVGFoo =
   (points: Coord[]) =>
   (isDark: boolean) =>
   (svg: SVG.Svg): IO.IO<SVG.Polygon> => {
     const color: Color = isDark ? colorDark : colorLight
+    const className = isDark ? "dark" : "light"
     const [[x1, y1], [x2, y2], [x3, y3]] = points
     const path: SvgPath = `${x1},${y1} ${x2},${y2} ${x3},${y3}`
-    const triangleSvg = IO.of(SVG.polygon([path, color])(svg))
+    const triangleSvg = IO.of(SVG.polygon([path, color, className])(svg))
     return triangleSvg
   }
 
@@ -97,25 +79,20 @@ const drawTriangles = () => {
     },
     IO.map(
       A.map(
-        ([triangle, isDark]: [TrianglePoint.TrianglePoint[], boolean]): [
-          Coord[],
+        ([triangle, isDark]: [
+          TrianglePoint.TrianglePoint[],
           boolean
-        ] => {
+        ]): IO.IO<SVG.Polygon> => {
           return F.pipe(
             triangle,
             A.map(TrianglePoint.toCartesian),
             A.map(([x, y]) => [x * wPx, y * hPx] as Coord),
-            (triangle) => [triangle, isDark]
+            (points) => addTriangleToSVG(points)(isDark)(svg)
           )
         }
       )
     ),
-    IO.map(
-      A.map(([points, isDark]: [Coord[], boolean]) => {
-        return addTriangleToSVGFoo(points)(isDark)(svg)
-      })
-    ),
-    IO.chain(IO.sequenceArray),
+    IO.chain(IO.sequenceArray)
   )
 
   drawSVGs()
@@ -129,3 +106,14 @@ const initTriangleSubdivision = () => {
 }
 
 initTriangleSubdivision()
+
+anime
+  .timeline({
+    endDelay: 1000,
+    easing: "easeInOutQuad",
+    direction: "alternate",
+    loop: true,
+  })
+  .add({ targets: ".light", background: "#FFF" }, 0)
+  .add({ targets: ".dark", background: "rgb(255,255,255)" }, 0)
+  .add({ targets: ".triangle", translateX: 270 }, 0)
