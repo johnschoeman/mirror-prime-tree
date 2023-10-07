@@ -34,7 +34,7 @@
     "chokidar": "^3.5.3",
     "esbuild": "^0.18.0",
     "fp-ts": "^2.16.1",
-    "postcss": "^8.4.24",
+    "postcss": "^8.4.31",
     "postcss-cli": "^10.1.0",
     "rxjs": "^7.8.1",
     "source-map-support": "^0.5.21",
